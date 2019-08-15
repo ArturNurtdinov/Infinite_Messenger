@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "662555090588",
+    "firebase_url": "https://easymessenger-e4058.firebaseio.com",
+    "project_id": "easymessenger-e4058",
+    "storage_bucket": "easymessenger-e4058.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:662555090588:android:6c8f789e3e5b2415",
+        "android_client_info": {
+          "package_name": "com.topaz.easymessenger"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "662555090588-ls9octq6rof845eubvcqbqkop55jqne0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnXdxwp4vlBWODZimL7lSTNb5yJd9lFPs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "662555090588-ls9octq6rof845eubvcqbqkop55jqne0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
