@@ -1,5 +1,6 @@
 package com.topaz.easymessenger.views
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -38,6 +39,9 @@ class LoginActivity : AppCompatActivity(), LoginContract.View, LoginContract.OnL
 
     override fun onSuccess() {
         Toast.makeText(this@LoginActivity, "Logged in successfully", Toast.LENGTH_LONG).show()
+        val intent = Intent(this, LatestMessagesActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
     }
 
     override fun onFailure(message: String) {
