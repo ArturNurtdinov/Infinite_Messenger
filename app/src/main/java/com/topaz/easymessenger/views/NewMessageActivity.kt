@@ -1,5 +1,6 @@
 package com.topaz.easymessenger.views
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.topaz.easymessenger.R
@@ -16,6 +17,7 @@ class NewMessageActivity : AppCompatActivity(), NewMessageContract.View {
     private val adapter = GroupAdapter<ViewHolder>()
     companion object {
         const val TAG = "NEW_MESSAGE"
+        const val USER_KEY = "USER_KEY"
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +25,12 @@ class NewMessageActivity : AppCompatActivity(), NewMessageContract.View {
 
         supportActionBar?.title = "Select User"
 
+        adapter.setOnItemClickListener { item, view ->
+            val intent = Intent(this, ChatLogActivity::class.java)
+            intent.putExtra(USER_KEY, (item as UserItem).user)
+            startActivity(intent)
+            finish()
+        }
         new_message_recycler.adapter = adapter
         presenter.fetchUsers()
     }
