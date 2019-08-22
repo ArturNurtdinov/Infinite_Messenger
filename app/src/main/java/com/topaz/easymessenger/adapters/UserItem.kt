@@ -7,7 +7,7 @@ import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.user_row.view.*
 
-class UserItem(private val user: User) : Item<ViewHolder>() {
+class UserItem(val user: User) : Item<ViewHolder>() {
     companion object {
         private const val DEFAULT_AVATAR_URL =
             "https://cdn4.iconfinder.com/data/icons/social-messaging-ui-color-and-shapes-3/177800/129-512.png"
