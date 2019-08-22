@@ -8,7 +8,11 @@ import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.user_row.view.*
 
 class UserItem(private val user: User) : Item<ViewHolder>() {
-    private val DEFAULT_AVATAR_URL = "https://icons-for-free.com/iconfiles/png/512/incognito-131979013062197646.png"
+    companion object {
+        private const val DEFAULT_AVATAR_URL =
+            "https://cdn4.iconfinder.com/data/icons/social-messaging-ui-color-and-shapes-3/177800/129-512.png"
+    }
+
     override fun getLayout(): Int {
         return R.layout.user_row
     }
