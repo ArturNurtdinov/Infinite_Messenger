@@ -2,6 +2,7 @@ package com.topaz.easymessenger.views
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextView
 import com.topaz.easymessenger.R
 import com.topaz.easymessenger.contracts.ChatLogContract
 import com.topaz.easymessenger.utils.ChatFromItem
@@ -14,10 +15,6 @@ import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_chat_log.*
 
 class ChatLogActivity : AppCompatActivity(), ChatLogContract.View {
-    companion object {
-        const val TAG = "CHAT_LOG"
-    }
-
     private lateinit var toUser: User
     private val adapter = GroupAdapter<ViewHolder>()
     private val presenter = ChatLogPresenter(this)
@@ -34,6 +31,7 @@ class ChatLogActivity : AppCompatActivity(), ChatLogContract.View {
 
         send.setOnClickListener {
             presenter.sendMessage(chat_log.text.toString(), toUser.uid)
+            chat_log.setText("", TextView.BufferType.EDITABLE)
         }
     }
 
