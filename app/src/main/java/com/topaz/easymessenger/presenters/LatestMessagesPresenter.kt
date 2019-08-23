@@ -8,7 +8,7 @@ class LatestMessagesPresenter(private val view: LatestMessagesContract.View) :
     LatestMessagesContract.Presenter, LatestMessagesContract.Fetcher {
     private val model = LatestMessagesModel(this)
     override fun fetchCurrentUser() {
-        return model.fetchCurrentUser()
+        model.fetchCurrentUser()
     }
 
     override fun verifyIsLogged() {

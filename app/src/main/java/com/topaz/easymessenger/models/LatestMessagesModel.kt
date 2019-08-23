@@ -18,10 +18,9 @@ class LatestMessagesModel(private val fetcher: LatestMessagesContract.Fetcher) :
         FirebaseAuth.getInstance().signOut()
     }
 
-    private var user: User? = null
     override fun fetchCurrentUser() {
         val uid = FirebaseAuth.getInstance().uid
-        val ref = FirebaseDatabase.getInstance().getReference("/users/$uid").push()
+        val ref = FirebaseDatabase.getInstance().getReference("/users/$uid")
         ref.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
 
