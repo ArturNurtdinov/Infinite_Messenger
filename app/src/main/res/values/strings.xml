@@ -7,4 +7,12 @@
     <string name="already_have_an_account">Already have an account?</string>
     <string name="need_an_account">Need an account?</string>
     <string name="login_UC">LOGIN</string>
+    <string name="select_photo">Select photo</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="new_message">New message</string>
+    <string name="username">Username</string>
+    <string name="send_UC">SEND</string>
+    <string name="enter_text">Enter text</string>
+    <string name="message">Message</string>
+    <string name="select_user">Select User</string>
 </resources>
