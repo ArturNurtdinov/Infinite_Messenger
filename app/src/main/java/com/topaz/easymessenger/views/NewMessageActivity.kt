@@ -23,9 +23,9 @@ class NewMessageActivity : AppCompatActivity(), NewMessageContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_message)
 
-        supportActionBar?.title = "Select User"
+        supportActionBar?.title = getText(R.string.select_user)
 
-        adapter.setOnItemClickListener { item, view ->
+        adapter.setOnItemClickListener { item, _ ->
             val intent = Intent(this, ChatLogActivity::class.java)
             intent.putExtra(USER_KEY, (item as UserItem).user)
             startActivity(intent)
