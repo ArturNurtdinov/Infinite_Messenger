@@ -4,7 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.topaz.easymessenger.R
-import com.topaz.easymessenger.adapters.UserItem
+import com.topaz.easymessenger.utils.UserItem
 import com.topaz.easymessenger.contracts.NewMessageContract
 import com.topaz.easymessenger.data.User
 import com.topaz.easymessenger.presenters.NewMessagePresenter
