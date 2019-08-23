@@ -3,8 +3,8 @@ package com.topaz.easymessenger.views
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.topaz.easymessenger.R
-import com.topaz.easymessenger.adapters.ChatFromItem
-import com.topaz.easymessenger.adapters.ChatToItem
+import com.topaz.easymessenger.utils.ChatFromItem
+import com.topaz.easymessenger.utils.ChatToItem
 import com.topaz.easymessenger.data.User
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
