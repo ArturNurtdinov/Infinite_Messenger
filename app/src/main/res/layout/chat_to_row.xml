@@ -16,7 +16,6 @@
         android:background="@drawable/rounded_edit_text"
         android:maxWidth="240dp"
         android:padding="16dp"
-        android:text="This is veryyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy long text"
         app:layout_constraintEnd_toStartOf="@id/profile_picture"
         app:layout_constraintTop_toTopOf="parent" />
 
