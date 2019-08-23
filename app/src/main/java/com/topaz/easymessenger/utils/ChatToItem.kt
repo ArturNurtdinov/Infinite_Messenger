@@ -7,7 +7,7 @@ import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.chat_to_row.view.*
 
-class ChatToItem(private val message: String, private val user: User): Item<ViewHolder>() {
+class ChatToItem(private val message: String, private val user: User) : Item<ViewHolder>() {
     override fun bind(viewHolder: ViewHolder, position: Int) {
         viewHolder.itemView.message.text = message
         if (user.profileImageURL != "") {
