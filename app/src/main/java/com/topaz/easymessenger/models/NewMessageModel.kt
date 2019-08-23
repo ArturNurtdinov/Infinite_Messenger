@@ -1,6 +1,7 @@
 package com.topaz.easymessenger.models
 
 import android.util.Log
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -19,10 +20,11 @@ class NewMessageModel(private val changeListener: NewMessageContract.ChangeListe
             }
 
             override fun onDataChange(p0: DataSnapshot) {
+                val matchingUid = FirebaseAuth.getInstance().uid
                 p0.children.forEach {
                     val user = it.getValue(User::class.java)
                     Log.d(NewMessageActivity.TAG, "User with uid: ${user?.uid} fetched")
-                    if (user != null) {
+                    if ((user != null) && (user.uid != matchingUid)) {
                         changeListener.getChange(user)
                     }
                 }
