@@ -27,22 +27,25 @@ class ChatLogActivity : AppCompatActivity(), ChatLogContract.View {
 
         chat_log_recycler.adapter = adapter
 
-        presenter.setListenerForMessages()
+        presenter.setListenerForMessages(toUser.uid)
 
         send.setOnClickListener {
             presenter.sendMessage(chat_log.text.toString(), toUser.uid)
-            chat_log.setText("", TextView.BufferType.EDITABLE)
+            chat_log.text.clear()
+            chat_log_recycler.scrollToPosition(adapter.itemCount - 1)
         }
     }
 
     override fun showMessageFrom(message: ChatMessage) {
         adapter.add(ChatFromItem(message.message, toUser))
         adapter.notifyDataSetChanged()
+        chat_log_recycler.scrollToPosition(adapter.itemCount - 1)
     }
 
     override fun showMessageTo(message: ChatMessage) {
         val currentUser = LatestMessagesActivity.currentUser ?: return
         adapter.add(ChatToItem(message.message, currentUser))
         adapter.notifyDataSetChanged()
+        chat_log_recycler.scrollToPosition(adapter.itemCount - 1)
     }
 }

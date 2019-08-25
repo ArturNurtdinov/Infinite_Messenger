@@ -9,8 +9,10 @@ import com.topaz.easymessenger.contracts.ChatLogContract
 import com.topaz.easymessenger.data.ChatMessage
 
 class ChatLogModel(private val listener: ChatLogContract.ChangeListener) : ChatLogContract.Model {
-    override fun setListenerForMessages() {
-        val ref = FirebaseDatabase.getInstance().getReference("/messages")
+    override fun setListenerForMessages(toId: String) {
+
+        val fromId = FirebaseAuth.getInstance().uid ?: return
+        val ref = FirebaseDatabase.getInstance().getReference("/user-messages/$fromId/$toId")
 
         ref.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(p0: DataSnapshot, p1: String?) {
@@ -34,8 +36,11 @@ class ChatLogModel(private val listener: ChatLogContract.ChangeListener) : ChatL
     }
 
     override fun sendMessage(text: String, toId: String) {
-        val ref = FirebaseDatabase.getInstance().getReference("/messages").push()
         val fromId = FirebaseAuth.getInstance().uid ?: return
+
+        val ref = FirebaseDatabase.getInstance().getReference("/user-messages/$fromId/$toId").push()
+
+        val toRef = FirebaseDatabase.getInstance().getReference("/user-messages/$toId/$fromId").push()
         val chatMessage =
             ChatMessage(
                 ref.key ?: return,
@@ -45,5 +50,6 @@ class ChatLogModel(private val listener: ChatLogContract.ChangeListener) : ChatL
                 System.currentTimeMillis() / 1000
             )
         ref.setValue(chatMessage)
+        toRef.setValue(chatMessage)
     }
 }

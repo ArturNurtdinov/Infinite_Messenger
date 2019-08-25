@@ -4,12 +4,12 @@ import com.topaz.easymessenger.data.ChatMessage
 
 interface ChatLogContract {
     interface Model {
-        fun setListenerForMessages()
+        fun setListenerForMessages(toId: String)
         fun sendMessage(text: String, toId: String)
     }
 
     interface Presenter {
-        fun setListenerForMessages()
+        fun setListenerForMessages(toId: String)
         fun sendMessage(text: String, toId: String)
     }
 

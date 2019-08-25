@@ -7,8 +7,8 @@ import com.topaz.easymessenger.models.ChatLogModel
 class ChatLogPresenter(private val view: ChatLogContract.View) : ChatLogContract.Presenter,
     ChatLogContract.ChangeListener {
     private val model = ChatLogModel(this)
-    override fun setListenerForMessages() {
-        model.setListenerForMessages()
+    override fun setListenerForMessages(toId: String) {
+        model.setListenerForMessages(toId)
     }
 
     override fun sendMessage(text: String, toId: String) {
