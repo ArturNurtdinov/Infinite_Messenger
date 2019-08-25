@@ -8,6 +8,15 @@ import com.topaz.easymessenger.models.LatestMessagesModel
 class LatestMessagesPresenter(private val view: LatestMessagesContract.View) :
     LatestMessagesContract.Presenter, LatestMessagesContract.Fetcher {
     private val model = LatestMessagesModel(this)
+
+    override fun setNotificationWithFetchingUser(chatMessage: ChatMessage) {
+        model.fetchUserAndSetNotification(chatMessage)
+    }
+
+    override fun fetchCurrentUser() {
+        model.fetchCurrentUser()
+    }
+
     override fun setListenerForLatest() {
         model.setListenerForLatest()
     }
@@ -20,8 +29,8 @@ class LatestMessagesPresenter(private val view: LatestMessagesContract.View) :
         view.onLatestAdded(chatMessage, key)
     }
 
-    override fun fetchCurrentUser() {
-        model.fetchCurrentUser()
+    override fun createNotification(chatMessage: ChatMessage, user: User) {
+        view.createNotification(chatMessage, user)
     }
 
     override fun verifyIsLogged() {

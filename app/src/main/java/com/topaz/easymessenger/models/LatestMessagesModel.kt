@@ -8,6 +8,21 @@ import com.topaz.easymessenger.data.User
 
 class LatestMessagesModel(private val fetcher: LatestMessagesContract.Fetcher) :
     LatestMessagesContract.Model {
+
+    override fun fetchUserAndSetNotification(chatMessage: ChatMessage) {
+        val ref = FirebaseDatabase.getInstance().getReference("/users/${chatMessage.fromId}")
+        ref.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+
+            }
+
+            override fun onDataChange(p0: DataSnapshot) {
+                fetcher.createNotification(chatMessage, p0.getValue(User::class.java) ?: return)
+            }
+
+        })
+    }
+
     override fun verifyIsLogged(): Boolean {
         return FirebaseAuth.getInstance().uid != null
     }
