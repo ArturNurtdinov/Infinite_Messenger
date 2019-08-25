@@ -40,7 +40,11 @@ class ChatLogModel(private val listener: ChatLogContract.ChangeListener) : ChatL
 
         val ref = FirebaseDatabase.getInstance().getReference("/user-messages/$fromId/$toId").push()
 
-        val toRef = FirebaseDatabase.getInstance().getReference("/user-messages/$toId/$fromId").push()
+        val toRef =
+            FirebaseDatabase.getInstance().getReference("/user-messages/$toId/$fromId").push()
+
+        val latestMessageRef =
+            FirebaseDatabase.getInstance().getReference("/latest-messages/$fromId/$toId")
         val chatMessage =
             ChatMessage(
                 ref.key ?: return,
@@ -51,5 +55,6 @@ class ChatLogModel(private val listener: ChatLogContract.ChangeListener) : ChatL
             )
         ref.setValue(chatMessage)
         toRef.setValue(chatMessage)
+        latestMessageRef.setValue(chatMessage)
     }
 }
