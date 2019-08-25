@@ -32,24 +32,6 @@ class LatestMessagesModel(private val fetcher: LatestMessagesContract.Fetcher) :
 
     override fun setListenerForLatest() {
         val fromId = FirebaseAuth.getInstance().uid
-        val refUser = FirebaseDatabase.getInstance().getReference("/users")
-        refUser.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onCancelled(p0: DatabaseError) {
-            }
-
-            override fun onDataChange(p0: DataSnapshot) {
-                p0.children.forEach {
-                    val user = it.getValue(User::class.java)
-                    if ((user != null) && (user.uid != fromId)) {
-                        setListenerWithUser(fromId)
-                    }
-                }
-            }
-
-        })
-    }
-
-    private fun setListenerWithUser(fromId: String?) {
         val ref = FirebaseDatabase.getInstance().getReference("/latest-messages/$fromId")
         ref.addChildEventListener(object : ChildEventListener {
             override fun onCancelled(p0: DatabaseError) {
