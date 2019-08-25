@@ -9,6 +9,7 @@ import com.squareup.picasso.Picasso
 import com.topaz.easymessenger.R
 import com.topaz.easymessenger.data.ChatMessage
 import com.topaz.easymessenger.data.User
+import com.topaz.easymessenger.utils.Constants
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.latest_messages_row.view.*
@@ -45,7 +46,7 @@ class LatestMessagesItem(private val chatMessage: ChatMessage) :
                         Picasso.get().load(user.profileImageURL)
                             .into(viewHolder.itemView.profile_picture)
                     } else {
-                        Picasso.get().load(UserItem.DEFAULT_AVATAR_URL)
+                        Picasso.get().load(Constants.DEFAULT_AVATAR_URL)
                             .into(viewHolder.itemView.profile_picture)
                     }
                 }
