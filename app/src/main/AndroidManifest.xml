@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.topaz.easymessenger">
 
     <application
@@ -10,8 +9,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".views.ChatLogActivity"
+            android:windowSoftInputMode="stateHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".views.LatestMessagesActivity" />
+        </activity>
+        <activity android:name=".views.NewMessageActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".views.LatestMessagesActivity" />
+        </activity>
+        <activity android:name=".views.LatestMessagesActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".views.LoginActivity" />
+        <activity android:name=".views.RegisterActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
