@@ -1,10 +1,15 @@
 package com.topaz.easymessenger.views
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.core.app.NotificationCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.topaz.easymessenger.R
 import com.topaz.easymessenger.contracts.LatestMessagesContract
@@ -51,6 +56,22 @@ class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View 
         adapter.clear()
         latestMessagesMap.values.forEach {
             adapter.add(LatestMessagesItem(it))
+        }
+        if (chatMessage.fromId != currentUser?.uid) {
+            val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                val notificationChannel =
+                    NotificationChannel("ID01", "Chat", NotificationManager.IMPORTANCE_DEFAULT)
+                notificationManager.createNotificationChannel(notificationChannel)
+            }
+            val notification = NotificationCompat.Builder(this, "ID01")
+                .setSmallIcon(android.R.drawable.alert_dark_frame)
+                .setContentTitle("New message")
+                .setWhen(System.currentTimeMillis())
+                .setContentText(chatMessage.message)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .build()
+            notificationManager.notify(1, notification)
         }
     }
 
