@@ -1,4 +1,4 @@
-package com.topaz.easymessenger.utils
+package com.topaz.easymessenger.adapters
 
 import com.squareup.picasso.Picasso
 import com.topaz.easymessenger.R

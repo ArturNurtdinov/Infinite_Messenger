@@ -1,13 +1,17 @@
-package com.topaz.easymessenger.utils
+package com.topaz.easymessenger.adapters
 
 import com.squareup.picasso.Picasso
 import com.topaz.easymessenger.R
 import com.topaz.easymessenger.data.User
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
-import kotlinx.android.synthetic.main.chat_to_row.view.*
+import kotlinx.android.synthetic.main.chat_from_row.view.*
 
-class ChatToItem(private val message: String, private val user: User) : Item<ViewHolder>() {
+class ChatFromItem(private val message: String, private val user: User) : Item<ViewHolder>() {
+    override fun getLayout(): Int {
+        return R.layout.chat_from_row
+    }
+
     override fun bind(viewHolder: ViewHolder, position: Int) {
         viewHolder.itemView.message.text = message
         if (user.profileImageURL != "") {
@@ -16,9 +20,5 @@ class ChatToItem(private val message: String, private val user: User) : Item<Vie
             Picasso.get().load(UserItem.DEFAULT_AVATAR_URL)
                 .into(viewHolder.itemView.profile_picture)
         }
-    }
-
-    override fun getLayout(): Int {
-        return R.layout.chat_to_row
     }
 }
