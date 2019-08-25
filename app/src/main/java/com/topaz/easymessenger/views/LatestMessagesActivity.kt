@@ -7,8 +7,14 @@ import android.view.Menu
 import android.view.MenuItem
 import com.topaz.easymessenger.R
 import com.topaz.easymessenger.contracts.LatestMessagesContract
+import com.topaz.easymessenger.data.ChatMessage
 import com.topaz.easymessenger.data.User
 import com.topaz.easymessenger.presenters.LatestMessagesPresenter
+import com.topaz.easymessenger.utils.LatestMessagesItem
+import com.topaz.easymessenger.views.NewMessageActivity.Companion.USER_KEY
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.ViewHolder
+import kotlinx.android.synthetic.main.activity_latest_messages.*
 
 class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View {
     companion object {
@@ -16,12 +22,29 @@ class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View 
     }
 
     private val presenter = LatestMessagesPresenter(this)
+    private val adapter = GroupAdapter<ViewHolder>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_latest_messages)
 
+        adapter.setOnItemClickListener { item, _ ->
+            val intent = Intent(this, ChatLogActivity::class.java)
+            intent.putExtra(USER_KEY, (item as LatestMessagesItem).user)
+            startActivity(intent)
+            finish()
+        }
+        latest_messages_recycler.adapter = adapter
         presenter.verifyIsLogged()
         presenter.fetchCurrentUser()
+        presenter.setListenerForLatest()
+    }
+
+    override fun onLatestChanged(chatMessage: ChatMessage, user: User) {
+
+    }
+
+    override fun onLatestAdded(chatMessage: ChatMessage, user: User) {
+        adapter.add(LatestMessagesItem(chatMessage, user))
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
