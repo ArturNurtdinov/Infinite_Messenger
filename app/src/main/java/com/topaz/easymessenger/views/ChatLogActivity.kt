@@ -2,11 +2,10 @@ package com.topaz.easymessenger.views
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.TextView
 import com.topaz.easymessenger.R
 import com.topaz.easymessenger.contracts.ChatLogContract
-import com.topaz.easymessenger.utils.ChatFromItem
-import com.topaz.easymessenger.utils.ChatToItem
+import com.topaz.easymessenger.adapters.ChatFromItem
+import com.topaz.easymessenger.adapters.ChatToItem
 import com.topaz.easymessenger.data.User
 import com.topaz.easymessenger.data.ChatMessage
 import com.topaz.easymessenger.presenters.ChatLogPresenter
