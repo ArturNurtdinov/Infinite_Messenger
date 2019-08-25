@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.topaz.easymessenger.R
 import com.topaz.easymessenger.contracts.LatestMessagesContract
 import com.topaz.easymessenger.data.ChatMessage
@@ -30,10 +31,16 @@ class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View 
 
         adapter.setOnItemClickListener { item, _ ->
             val intent = Intent(this, ChatLogActivity::class.java)
-            intent.putExtra(USER_KEY, (item as LatestMessagesItem).user)
+            intent.putExtra(USER_KEY, (item as LatestMessagesItem).userPartner)
             startActivity(intent)
         }
         latest_messages_recycler.adapter = adapter
+        latest_messages_recycler.addItemDecoration(
+            DividerItemDecoration(
+                this,
+                DividerItemDecoration.VERTICAL
+            )
+        )
         presenter.verifyIsLogged()
         presenter.fetchCurrentUser()
         presenter.setListenerForLatest()

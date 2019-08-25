@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.latest_messages_row.view.*
 
 class LatestMessagesItem(private val chatMessage: ChatMessage) :
     Item<ViewHolder>() {
-    val user: User? = null
+    var userPartner: User? = null
 
     override fun getLayout(): Int {
         return R.layout.latest_messages_row
@@ -37,6 +37,7 @@ class LatestMessagesItem(private val chatMessage: ChatMessage) :
 
             override fun onDataChange(p0: DataSnapshot) {
                 val user = p0.getValue(User::class.java)
+                userPartner = user
                 if (user != null) {
                     viewHolder.itemView.username.text = user.username
 
