@@ -41,7 +41,7 @@ class LatestMessagesModel(private val fetcher: LatestMessagesContract.Fetcher) :
                 p0.children.forEach {
                     val user = it.getValue(User::class.java)
                     if ((user != null) && (user.uid != fromId)) {
-                        setListenerWithUser(user, fromId)
+                        setListenerWithUser(fromId)
                     }
                 }
             }
@@ -49,7 +49,7 @@ class LatestMessagesModel(private val fetcher: LatestMessagesContract.Fetcher) :
         })
     }
 
-    private fun setListenerWithUser(user: User, fromId: String?) {
+    private fun setListenerWithUser(fromId: String?) {
         val ref = FirebaseDatabase.getInstance().getReference("/latest-messages/$fromId")
         ref.addChildEventListener(object : ChildEventListener {
             override fun onCancelled(p0: DatabaseError) {
@@ -59,11 +59,11 @@ class LatestMessagesModel(private val fetcher: LatestMessagesContract.Fetcher) :
             }
 
             override fun onChildChanged(p0: DataSnapshot, p1: String?) {
-                fetcher.onLatestChanged(p0.getValue(ChatMessage::class.java) ?: return, user)
+                fetcher.onLatestChanged(p0.getValue(ChatMessage::class.java) ?: return, p0.key!!)
             }
 
             override fun onChildAdded(p0: DataSnapshot, p1: String?) {
-                fetcher.onLatestAdded(p0.getValue(ChatMessage::class.java) ?: return, user)
+                fetcher.onLatestAdded(p0.getValue(ChatMessage::class.java) ?: return, p0.key!!)
             }
 
             override fun onChildRemoved(p0: DataSnapshot) {

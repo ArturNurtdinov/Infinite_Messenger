@@ -12,12 +12,12 @@ class LatestMessagesPresenter(private val view: LatestMessagesContract.View) :
         model.setListenerForLatest()
     }
 
-    override fun onLatestChanged(chatMessage: ChatMessage, user: User) {
-        view.onLatestChanged(chatMessage, user)
+    override fun onLatestChanged(chatMessage: ChatMessage, key: String) {
+        view.onLatestChanged(chatMessage, key)
     }
 
-    override fun onLatestAdded(chatMessage: ChatMessage, user: User) {
-        view.onLatestAdded(chatMessage, user)
+    override fun onLatestAdded(chatMessage: ChatMessage, key: String) {
+        view.onLatestAdded(chatMessage, key)
     }
 
     override fun fetchCurrentUser() {

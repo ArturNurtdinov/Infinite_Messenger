@@ -19,8 +19,8 @@ interface LatestMessagesContract {
     }
 
     interface View {
-        fun onLatestChanged(chatMessage: ChatMessage, user: User)
-        fun onLatestAdded(chatMessage: ChatMessage, user: User)
+        fun onLatestChanged(chatMessage: ChatMessage, key: String)
+        fun onLatestAdded(chatMessage: ChatMessage, key: String)
         fun isLogged()
         fun isNotLogged()
         fun onSignOut()
@@ -28,8 +28,8 @@ interface LatestMessagesContract {
     }
 
     interface Fetcher {
-        fun onLatestChanged(chatMessage: ChatMessage, user: User)
-        fun onLatestAdded(chatMessage: ChatMessage, user: User)
+        fun onLatestChanged(chatMessage: ChatMessage, key: String)
+        fun onLatestAdded(chatMessage: ChatMessage, key: String)
         fun fetch(user: User?)
     }
 }
