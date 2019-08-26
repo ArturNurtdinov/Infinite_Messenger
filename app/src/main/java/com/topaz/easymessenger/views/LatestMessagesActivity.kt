@@ -2,6 +2,7 @@ package com.topaz.easymessenger.views
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -17,6 +18,7 @@ import com.topaz.easymessenger.data.ChatMessage
 import com.topaz.easymessenger.data.User
 import com.topaz.easymessenger.presenters.LatestMessagesPresenter
 import com.topaz.easymessenger.adapters.LatestMessagesItem
+import com.topaz.easymessenger.utils.Constants
 import com.topaz.easymessenger.views.NewMessageActivity.Companion.USER_KEY
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
@@ -57,22 +59,7 @@ class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View 
         latestMessagesMap.values.forEach {
             adapter.add(LatestMessagesItem(it))
         }
-        if (chatMessage.fromId != currentUser?.uid) {
-            val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                val notificationChannel =
-                    NotificationChannel("ID01", "Chat", NotificationManager.IMPORTANCE_DEFAULT)
-                notificationManager.createNotificationChannel(notificationChannel)
-            }
-            val notification = NotificationCompat.Builder(this, "ID01")
-                .setSmallIcon(android.R.drawable.alert_dark_frame)
-                .setContentTitle("New message")
-                .setWhen(System.currentTimeMillis())
-                .setContentText(chatMessage.message)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .build()
-            notificationManager.notify(1, notification)
-        }
+        presenter.setNotificationWithFetchingUser(chatMessage)
     }
 
     override fun onLatestAdded(chatMessage: ChatMessage, key: String) {
@@ -80,6 +67,39 @@ class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View 
         adapter.clear()
         latestMessagesMap.values.forEach {
             adapter.add(LatestMessagesItem(it))
+        }
+        if (chatMessage.timestamp == System.currentTimeMillis()) {
+            presenter.setNotificationWithFetchingUser(chatMessage)
+        }
+    }
+
+    override fun createNotification(chatMessage: ChatMessage, user: User) {
+        if (chatMessage.fromId != currentUser?.uid) {
+            val notificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                val notificationChannel =
+                    NotificationChannel(
+                        Constants.CHANNEL_ID,
+                        Constants.CHANNEL_NAME,
+                        NotificationManager.IMPORTANCE_DEFAULT
+                    )
+                notificationManager.createNotificationChannel(notificationChannel)
+            }
+            val intent = Intent(this, ChatLogActivity::class.java)
+            intent.putExtra(USER_KEY, user)
+            val pendingIntent =
+                PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+            val notification = NotificationCompat.Builder(this, Constants.CHANNEL_ID)
+                .setSmallIcon(android.R.drawable.alert_dark_frame)
+                .setContentIntent(pendingIntent)
+                .setContentTitle(user.username)
+                .setWhen(System.currentTimeMillis())
+                .setContentText(chatMessage.message)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setAutoCancel(true)
+                .build()
+            notificationManager.notify(1, notification)
         }
     }
 
