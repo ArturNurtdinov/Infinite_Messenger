@@ -13,6 +13,8 @@ import com.topaz.easymessenger.utils.Constants
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.latest_messages_row.view.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class LatestMessagesItem(private val chatMessage: ChatMessage) :
     Item<ViewHolder>() {
@@ -24,6 +26,14 @@ class LatestMessagesItem(private val chatMessage: ChatMessage) :
 
     override fun bind(viewHolder: ViewHolder, position: Int) {
         viewHolder.itemView.message.text = chatMessage.message
+        val date = Date(chatMessage.timestamp * 1000)
+        val dateFormat =
+            if (date.day == Date(System.currentTimeMillis()).day) {
+                SimpleDateFormat("HH:mm", Locale.getDefault())
+            } else {
+                SimpleDateFormat("MMM d", Locale.getDefault())
+            }
+        viewHolder.itemView.date.text = dateFormat.format(date)
 
         val chatPartnerId = if (chatMessage.fromId == FirebaseAuth.getInstance().uid) {
             chatMessage.toId
