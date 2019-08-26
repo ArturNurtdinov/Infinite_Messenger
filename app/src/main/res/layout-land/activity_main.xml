@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#DD80FF00"
+    tools:context=".views.RegisterActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <Button
+                android:id="@+id/select_photo"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_margin="4dp"
+                android:background="@drawable/rounded_select_photo_button"
+                android:text="@string/select_photo"
+                android:textColor="@android:color/white"
+                app:layout_constraintEnd_toEndOf="@id/kostyl"
+                app:layout_constraintStart_toStartOf="@id/kostyl"
+                app:layout_constraintTop_toTopOf="@id/kostyl" />
+
+            <Button
+                android:id="@+id/register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/rounded_button"
+                android:ems="10"
+                android:text="@string/register_UC"
+                android:textColor="@android:color/white"
+                app:layout_constraintEnd_toEndOf="@+id/password"
+                app:layout_constraintStart_toStartOf="@+id/password"
+                app:layout_constraintTop_toBottomOf="@+id/password" />
+
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_margin="8dp"
+                android:background="@drawable/rounded_edit_text"
+                android:ems="15"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/username" />
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_margin="8dp"
+                android:background="@drawable/rounded_edit_text"
+                android:ems="15"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/email" />
+
+            <EditText
+                android:id="@+id/username"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/rounded_edit_text"
+                android:ems="15"
+                android:hint="@string/name"
+                android:inputType="textPersonName"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                app:layout_constraintEnd_toEndOf="@+id/select_photo"
+                app:layout_constraintStart_toStartOf="@+id/select_photo"
+                app:layout_constraintTop_toBottomOf="@+id/select_photo" />
+
+            <TextView
+                android:id="@+id/already_registered"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:text="@string/already_have_an_account"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/register"
+                app:layout_constraintStart_toStartOf="@+id/register"
+                app:layout_constraintTop_toBottomOf="@+id/register" />
+
+            <View
+                android:id="@+id/kostyl"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                app:layout_constraintBottom_toBottomOf="@id/select_photo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/select_photo_image"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                app:civ_border_width="4dp"
+                app:layout_constraintBottom_toBottomOf="@+id/select_photo"
+                app:layout_constraintEnd_toEndOf="@+id/select_photo"
+                app:layout_constraintStart_toStartOf="@+id/select_photo"
+                app:layout_constraintTop_toTopOf="@+id/select_photo" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</LinearLayout>
