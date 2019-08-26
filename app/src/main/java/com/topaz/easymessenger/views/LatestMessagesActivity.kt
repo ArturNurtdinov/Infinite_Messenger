@@ -31,7 +31,9 @@ class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View 
 
     private val presenter = LatestMessagesPresenter(this)
     private val adapter = GroupAdapter<ViewHolder>()
-    private val latestMessagesMap = HashMap<String, ChatMessage>()
+    private val latestMessagesMap = LinkedHashMap<String, ChatMessage>()
+    private var notificationManager : NotificationManager? = null
+    private var notificationID = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_latest_messages)
@@ -48,15 +50,26 @@ class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View 
                 DividerItemDecoration.VERTICAL
             )
         )
+
+        notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val notificationChannel =
+                NotificationChannel(
+                    Constants.CHANNEL_ID,
+                    Constants.CHANNEL_NAME,
+                    NotificationManager.IMPORTANCE_DEFAULT
+                )
+            notificationManager?.createNotificationChannel(notificationChannel)
+        }
+
         presenter.verifyIsLogged()
-        presenter.fetchCurrentUser()
-        presenter.setListenerForLatest()
     }
 
     override fun onLatestChanged(chatMessage: ChatMessage, key: String) {
         latestMessagesMap[key] = chatMessage
         adapter.clear()
-        latestMessagesMap.values.forEach {
+        latestMessagesMap.toSortedMap(compareBy { -latestMessagesMap[it]?.timestamp!! })
+            .values.forEach {
             adapter.add(LatestMessagesItem(it))
         }
         presenter.setNotificationWithFetchingUser(chatMessage)
@@ -65,7 +78,8 @@ class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View 
     override fun onLatestAdded(chatMessage: ChatMessage, key: String) {
         latestMessagesMap[key] = chatMessage
         adapter.clear()
-        latestMessagesMap.values.forEach {
+        latestMessagesMap.toSortedMap(compareBy { -latestMessagesMap[it]?.timestamp!! })
+            .values.forEach {
             adapter.add(LatestMessagesItem(it))
         }
         if (chatMessage.timestamp == System.currentTimeMillis()) {
@@ -75,17 +89,6 @@ class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View 
 
     override fun createNotification(chatMessage: ChatMessage, user: User) {
         if (chatMessage.fromId != currentUser?.uid) {
-            val notificationManager =
-                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                val notificationChannel =
-                    NotificationChannel(
-                        Constants.CHANNEL_ID,
-                        Constants.CHANNEL_NAME,
-                        NotificationManager.IMPORTANCE_DEFAULT
-                    )
-                notificationManager.createNotificationChannel(notificationChannel)
-            }
             val intent = Intent(this, ChatLogActivity::class.java)
             intent.putExtra(USER_KEY, user)
             val pendingIntent =
@@ -99,7 +102,7 @@ class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View 
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setAutoCancel(true)
                 .build()
-            notificationManager.notify(1, notification)
+            notificationManager?.notify(++notificationID, notification)
         }
     }
 
@@ -123,7 +126,8 @@ class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View 
     }
 
     override fun isLogged() {
-
+        presenter.fetchCurrentUser()
+        presenter.setListenerForLatest()
     }
 
     override fun initializeUser(user: User?) {
