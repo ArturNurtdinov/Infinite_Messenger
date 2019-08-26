@@ -36,14 +36,14 @@ class ChatLogActivity : AppCompatActivity(), ChatLogContract.View {
     }
 
     override fun showMessageFrom(message: ChatMessage) {
-        adapter.add(ChatFromItem(message.message, toUser))
+        adapter.add(ChatFromItem(message, toUser))
         adapter.notifyDataSetChanged()
         chat_log_recycler.scrollToPosition(adapter.itemCount - 1)
     }
 
     override fun showMessageTo(message: ChatMessage) {
         val currentUser = LatestMessagesActivity.currentUser ?: return
-        adapter.add(ChatToItem(message.message, currentUser))
+        adapter.add(ChatToItem(message, currentUser))
         adapter.notifyDataSetChanged()
         chat_log_recycler.scrollToPosition(adapter.itemCount - 1)
     }
