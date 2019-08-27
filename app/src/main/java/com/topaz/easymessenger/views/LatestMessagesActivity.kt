@@ -94,7 +94,7 @@ class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View 
             val pendingIntent =
                 PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
             val notification = NotificationCompat.Builder(this, Constants.CHANNEL_ID)
-                .setSmallIcon(android.R.drawable.alert_dark_frame)
+                .setSmallIcon(R.drawable.ic_notification)
                 .setContentIntent(pendingIntent)
                 .setContentTitle(user.username)
                 .setWhen(System.currentTimeMillis())
