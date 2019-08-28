@@ -5,7 +5,8 @@ data class ChatMessage(
     val message: String,
     val fromId: String,
     val toId: String,
-    val timestamp: Long
+    val timestamp: Long,
+    var read: String
 ) {
-    constructor() : this("", "", "", "", -1)
+    constructor() : this("", "", "", "", -1, "true")
 }
