@@ -7,6 +7,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import android.widget.SearchView
 import androidx.core.view.MenuItemCompat
 import com.topaz.easymessenger.R
 import com.topaz.easymessenger.adapters.UserItem
@@ -51,9 +52,9 @@ class NewMessageActivity : AppCompatActivity(), NewMessageContract.View {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.search_menu, menu)
-        val searchView =
-            MenuItemCompat.getActionView(menu?.findItem(R.id.search)) as android.widget.SearchView
-        searchView.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
+        val searchView: SearchView =
+            MenuItemCompat.getActionView(menu?.findItem(R.id.search)) as SearchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
             }
