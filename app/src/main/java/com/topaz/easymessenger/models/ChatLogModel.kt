@@ -55,7 +55,8 @@ class ChatLogModel(private val listener: ChatLogContract.ChangeListener) : ChatL
                 text,
                 fromId,
                 toId,
-                System.currentTimeMillis() / 1000
+                System.currentTimeMillis() / 1000,
+                "false"
             )
         ref.setValue(chatMessage)
         toRef.setValue(chatMessage)
