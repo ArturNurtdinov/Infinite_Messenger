@@ -9,6 +9,27 @@ import com.topaz.easymessenger.data.User
 class LatestMessagesModel(private val fetcher: LatestMessagesContract.Fetcher) :
     LatestMessagesContract.Model {
 
+    override fun setMessageRead(chatMessage: ChatMessage) {
+        val refLatestFromTo =
+            FirebaseDatabase.getInstance()
+                .getReference("/latest-messages/${chatMessage.fromId}/${chatMessage.toId}")
+        val refLatestToFrom =
+            FirebaseDatabase.getInstance()
+                .getReference("/latest-messages/${chatMessage.toId}/${chatMessage.fromId}")
+        val refUserMesToFrom =
+            FirebaseDatabase.getInstance()
+                .getReference("/user-messages/${chatMessage.toId}/${chatMessage.fromId}/${chatMessage.id}")
+        val refUserMesFromTo =
+            FirebaseDatabase.getInstance()
+                .getReference("/user-messages/${chatMessage.fromId}/${chatMessage.toId}/${chatMessage.id}")
+        chatMessage.read = "true"
+
+        refLatestFromTo.setValue(chatMessage)
+        refLatestToFrom.setValue(chatMessage)
+        refUserMesFromTo.setValue(chatMessage)
+        refUserMesToFrom.setValue(chatMessage)
+    }
+
     override fun fetchUserAndSetNotification(chatMessage: ChatMessage) {
         val ref = FirebaseDatabase.getInstance().getReference("/users/${chatMessage.fromId}")
         ref.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -56,7 +77,10 @@ class LatestMessagesModel(private val fetcher: LatestMessagesContract.Fetcher) :
             }
 
             override fun onChildChanged(p0: DataSnapshot, p1: String?) {
-                fetcher.onLatestChanged(p0.getValue(ChatMessage::class.java) ?: return, p0.key!!)
+                fetcher.onLatestChanged(
+                    p0.getValue(ChatMessage::class.java) ?: return,
+                    p0.key!!
+                )
             }
 
             override fun onChildAdded(p0: DataSnapshot, p1: String?) {
