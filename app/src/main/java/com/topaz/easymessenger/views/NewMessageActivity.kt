@@ -7,6 +7,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import android.view.View
 import android.widget.SearchView
 import androidx.core.view.MenuItemCompat
 import com.topaz.easymessenger.R
@@ -46,6 +47,7 @@ class NewMessageActivity : AppCompatActivity(), NewMessageContract.View {
     }
 
     override fun addUser(user: User) {
+        progress_bar.visibility = View.GONE
         adapter.add(UserItem(user))
         userList.add(user)
     }

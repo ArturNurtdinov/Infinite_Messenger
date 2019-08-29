@@ -81,6 +81,7 @@ class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View 
     override fun onLatestAdded(chatMessage: ChatMessage, key: String) {
         latestMessagesMap[key] = chatMessage
         adapter.clear()
+        progress_bar.visibility = View.GONE
         latestMessagesMap.toSortedMap(compareBy { -latestMessagesMap[it]?.timestamp!! })
             .values.forEach {
             adapter.add(LatestMessagesItem(it))
@@ -129,8 +130,11 @@ class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View 
     }
 
     override fun isLogged() {
-        presenter.fetchCurrentUser()
         presenter.setListenerForLatest()
+        presenter.fetchCurrentUser()
+        if (latestMessagesMap.isEmpty()) {
+            progress_bar.visibility = View.GONE
+        }
     }
 
     override fun initializeUser(user: User?) {
