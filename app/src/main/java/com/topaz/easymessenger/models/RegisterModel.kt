@@ -18,7 +18,8 @@ class RegisterModel(private val listener: RegisterContract.OnRegisterListener) :
         username: String,
         uri: Uri?
     ) {
-        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
+        val auth = FirebaseAuth.getInstance()
+        auth.createUserWithEmailAndPassword(email, password)
             .addOnSuccessListener {
                 Log.d(RegisterActivity.TAG, "Added user with uid ${it.user.uid}")
                 if (uri != null) {
@@ -31,6 +32,7 @@ class RegisterModel(private val listener: RegisterContract.OnRegisterListener) :
                 Log.d(RegisterActivity.TAG, "Registration failed: ${it.message}")
                 listener.onFailure(it.message.toString())
             }
+        auth.currentUser?.sendEmailVerification()
     }
 
     private fun saveProfilePicture(username: String, uri: Uri) {
