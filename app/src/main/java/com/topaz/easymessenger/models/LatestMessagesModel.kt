@@ -6,22 +6,8 @@ import com.topaz.easymessenger.contracts.LatestMessagesContract
 import com.topaz.easymessenger.data.ChatMessage
 import com.topaz.easymessenger.data.User
 
-class LatestMessagesModel(private val fetcher: LatestMessagesContract.Fetcher) :
+class LatestMessagesModel(private val onDataReady: LatestMessagesContract.OnDataReady) :
     LatestMessagesContract.Model {
-
-    override fun fetchUserAndSetNotification(chatMessage: ChatMessage) {
-        val ref = FirebaseDatabase.getInstance().getReference("/users/${chatMessage.fromId}")
-        ref.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onCancelled(p0: DatabaseError) {
-
-            }
-
-            override fun onDataChange(p0: DataSnapshot) {
-                fetcher.createNotification(chatMessage, p0.getValue(User::class.java) ?: return)
-            }
-
-        })
-    }
 
     override fun verifyIsLogged(): Boolean {
         return FirebaseAuth.getInstance().uid != null
@@ -40,7 +26,7 @@ class LatestMessagesModel(private val fetcher: LatestMessagesContract.Fetcher) :
             }
 
             override fun onDataChange(p0: DataSnapshot) {
-                fetcher.fetch(p0.getValue(User::class.java))
+                onDataReady.sendUser(p0.getValue(User::class.java))
             }
         })
     }
@@ -56,14 +42,14 @@ class LatestMessagesModel(private val fetcher: LatestMessagesContract.Fetcher) :
             }
 
             override fun onChildChanged(p0: DataSnapshot, p1: String?) {
-                fetcher.onLatestChanged(
+                onDataReady.onLatestChanged(
                     p0.getValue(ChatMessage::class.java) ?: return,
                     p0.key!!
                 )
             }
 
             override fun onChildAdded(p0: DataSnapshot, p1: String?) {
-                fetcher.onLatestAdded(p0.getValue(ChatMessage::class.java) ?: return, p0.key!!)
+                onDataReady.onLatestAdded(p0.getValue(ChatMessage::class.java) ?: return, p0.key!!)
             }
 
             override fun onChildRemoved(p0: DataSnapshot) {
