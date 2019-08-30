@@ -5,7 +5,6 @@ import com.topaz.easymessenger.data.User
 
 interface LatestMessagesContract {
     interface Model {
-        fun setMessageRead(chatMessage: ChatMessage)
         fun setListenerForLatest()
         fun fetchCurrentUser()
         fun verifyIsLogged(): Boolean
@@ -14,7 +13,6 @@ interface LatestMessagesContract {
     }
 
     interface Presenter {
-        fun setMessageRead(chatMessage: ChatMessage)
         fun setListenerForLatest()
         fun fetchCurrentUser()
         fun verifyIsLogged()

@@ -43,7 +43,6 @@ class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View 
             val intent = Intent(this, ChatLogActivity::class.java)
             intent.putExtra(USER_KEY, (item as LatestMessagesItem).userPartner)
             view.read_mark.visibility = View.GONE
-            presenter.setMessageRead(item.chatMessage)
             startActivity(intent)
         }
         latest_messages_recycler.adapter = adapter
@@ -75,7 +74,6 @@ class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View 
             .values.forEach {
             adapter.add(LatestMessagesItem(it))
         }
-        presenter.setNotificationWithFetchingUser(chatMessage)
     }
 
     override fun onLatestAdded(chatMessage: ChatMessage, key: String) {
@@ -85,9 +83,6 @@ class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View 
         latestMessagesMap.toSortedMap(compareBy { -latestMessagesMap[it]?.timestamp!! })
             .values.forEach {
             adapter.add(LatestMessagesItem(it))
-        }
-        if (chatMessage.timestamp == System.currentTimeMillis()) {
-            presenter.setNotificationWithFetchingUser(chatMessage)
         }
     }
 
