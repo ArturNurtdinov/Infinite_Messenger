@@ -9,7 +9,6 @@ interface LatestMessagesContract {
         fun fetchCurrentUser()
         fun verifyIsLogged(): Boolean
         fun signOut()
-        fun fetchUserAndSetNotification(chatMessage: ChatMessage)
     }
 
     interface Presenter {
@@ -17,7 +16,6 @@ interface LatestMessagesContract {
         fun fetchCurrentUser()
         fun verifyIsLogged()
         fun signOut()
-        fun setNotificationWithFetchingUser(chatMessage: ChatMessage)
     }
 
     interface View {
@@ -27,13 +25,11 @@ interface LatestMessagesContract {
         fun isNotLogged()
         fun onSignOut()
         fun initializeUser(user: User?)
-        fun createNotification(chatMessage: ChatMessage, user: User)
     }
 
-    interface Fetcher {
+    interface OnDataReady {
         fun onLatestChanged(chatMessage: ChatMessage, key: String)
         fun onLatestAdded(chatMessage: ChatMessage, key: String)
-        fun fetch(user: User?)
-        fun createNotification(chatMessage: ChatMessage, user: User)
+        fun sendUser(user: User?)
     }
 }
