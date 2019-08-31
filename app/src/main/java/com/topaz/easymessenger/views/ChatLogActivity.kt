@@ -9,6 +9,7 @@ import com.topaz.easymessenger.adapters.ChatToItem
 import com.topaz.easymessenger.data.User
 import com.topaz.easymessenger.data.ChatMessage
 import com.topaz.easymessenger.presenters.ChatLogPresenter
+import com.topaz.easymessenger.utils.Constants
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_chat_log.*
@@ -21,7 +22,7 @@ class ChatLogActivity : AppCompatActivity(), ChatLogContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat_log)
 
-        toUser = intent.getParcelableExtra(NewMessageActivity.USER_KEY)
+        toUser = intent.getParcelableExtra(Constants.USER_KEY)
         supportActionBar?.title = toUser.username
 
         chat_log_recycler.adapter = adapter
