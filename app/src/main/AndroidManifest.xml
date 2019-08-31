@@ -10,6 +10,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".views.ProfileSettingsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".views.LatestMessagesActivity" />
+        </activity>
         <activity
             android:name=".views.ChatLogActivity"
             android:windowSoftInputMode="stateHidden">
@@ -22,6 +27,7 @@
                 <action android:name="android.intent.action.SEARCH" />
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
+
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".views.LatestMessagesActivity" />
