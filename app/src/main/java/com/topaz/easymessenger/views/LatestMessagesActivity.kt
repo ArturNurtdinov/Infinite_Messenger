@@ -48,6 +48,14 @@ class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View 
         presenter.verifyIsLogged()
     }
 
+    override fun isLogged() {
+        presenter.fetchCurrentUser()
+        presenter.setListenerForLatest()
+        if (latestMessagesMap.isEmpty()) {
+            progress_bar.visibility = View.GONE
+        }
+    }
+
     override fun onLatestChanged(chatMessage: ChatMessage, key: String) {
         latestMessagesMap[key] = chatMessage
         adapter.clear()
@@ -89,14 +97,6 @@ class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View 
             }
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    override fun isLogged() {
-        presenter.setListenerForLatest()
-        presenter.fetchCurrentUser()
-        if (latestMessagesMap.isEmpty()) {
-            progress_bar.visibility = View.GONE
-        }
     }
 
     override fun initializeUser(user: User?) {
