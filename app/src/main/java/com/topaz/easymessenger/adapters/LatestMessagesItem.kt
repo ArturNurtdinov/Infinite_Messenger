@@ -1,5 +1,6 @@
 package com.topaz.easymessenger.adapters
 
+import android.view.View
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -16,7 +17,7 @@ import kotlinx.android.synthetic.main.latest_messages_row.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class LatestMessagesItem(private val chatMessage: ChatMessage) :
+class LatestMessagesItem(val chatMessage: ChatMessage) :
     Item<ViewHolder>() {
     var userPartner: User? = null
 
@@ -40,6 +41,10 @@ class LatestMessagesItem(private val chatMessage: ChatMessage) :
             chatMessage.toId
         } else {
             chatMessage.fromId
+        }
+
+        if ((chatMessage.fromId != currentUserId) && (chatMessage.read == "false")) {
+            viewHolder.itemView.read_mark.visibility = View.VISIBLE
         }
 
         val ref = FirebaseDatabase.getInstance().getReference("/users/$chatPartnerId")
