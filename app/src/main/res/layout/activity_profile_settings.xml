@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".views.ProfileSettingsActivity">
+
+    <EditText
+        android:id="@+id/profile_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:autofillHints="username"
+        android:editable="false"
+        android:focusable="true"
+        android:hint="@string/username"
+        android:inputType="none"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_picture" />
+
+    <ImageButton
+        android:id="@+id/edit_profile_username"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginBottom="8dp"
+        android:background="@android:color/white"
+        android:contentDescription="@string/edit_UC"
+        android:src="@drawable/ic_edit_black_24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/profile_username"
+        app:layout_constraintStart_toEndOf="@+id/profile_username" />
+
+    <ImageButton
+        android:id="@+id/edit_profile_picture"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@android:color/white"
+        android:contentDescription="@string/edit_UC"
+        android:src="@drawable/ic_edit_black_24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/profile_picture"
+        app:layout_constraintStart_toEndOf="@+id/profile_picture" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@id/profile_picture"
+        app:layout_constraintEnd_toEndOf="@id/profile_picture"
+        app:layout_constraintStart_toStartOf="@id/profile_picture"
+        app:layout_constraintTop_toTopOf="@id/profile_picture" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/username_with_two_points"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@id/profile_username"
+        app:layout_constraintEnd_toStartOf="@id/profile_username" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile_picture"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_margin="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
