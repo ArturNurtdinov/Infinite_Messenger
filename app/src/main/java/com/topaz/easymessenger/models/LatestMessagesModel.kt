@@ -9,6 +9,27 @@ import com.topaz.easymessenger.data.User
 class LatestMessagesModel(private val onDataReady: LatestMessagesContract.OnDataReady) :
     LatestMessagesContract.Model {
 
+    override fun setMessageRead(message: ChatMessage) {
+        val refLatestFromTo =
+            FirebaseDatabase.getInstance()
+                .getReference("/latest-messages/${message.fromId}/${message.toId}")
+        val refLatestToFrom =
+            FirebaseDatabase.getInstance()
+                .getReference("/latest-messages/${message.toId}/${message.fromId}")
+        val refUserMesToFrom =
+            FirebaseDatabase.getInstance()
+                .getReference("/user-messages/${message.toId}/${message.fromId}/${message.id}")
+        val refUserMesFromTo =
+            FirebaseDatabase.getInstance()
+                .getReference("/user-messages/${message.fromId}/${message.toId}/${message.id}")
+        message.read = "true"
+
+        refLatestFromTo.setValue(message)
+        refLatestToFrom.setValue(message)
+        refUserMesFromTo.setValue(message)
+        refUserMesToFrom.setValue(message)
+    }
+
     override fun verifyIsLogged(): Boolean {
         return FirebaseAuth.getInstance().uid != null
     }

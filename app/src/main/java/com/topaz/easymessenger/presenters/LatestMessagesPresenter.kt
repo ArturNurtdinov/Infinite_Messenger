@@ -13,6 +13,10 @@ class LatestMessagesPresenter(private val view: LatestMessagesContract.View) :
         model.fetchCurrentUser()
     }
 
+    override fun setMessageRead(message: ChatMessage) {
+        model.setMessageRead(message)
+    }
+
     override fun setListenerForLatest() {
         model.setListenerForLatest()
     }
