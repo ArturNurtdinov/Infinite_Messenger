@@ -15,6 +15,7 @@ import com.topaz.easymessenger.adapters.UserItem
 import com.topaz.easymessenger.contracts.NewMessageContract
 import com.topaz.easymessenger.data.User
 import com.topaz.easymessenger.presenters.NewMessagePresenter
+import com.topaz.easymessenger.utils.Constants
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_new_message.*
@@ -27,7 +28,6 @@ class NewMessageActivity : AppCompatActivity(), NewMessageContract.View {
 
     companion object {
         const val TAG = "NEW_MESSAGE"
-        const val USER_KEY = "USER_KEY"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +38,7 @@ class NewMessageActivity : AppCompatActivity(), NewMessageContract.View {
 
         adapter.setOnItemClickListener { item, _ ->
             val intent = Intent(this, ChatLogActivity::class.java)
-            intent.putExtra(USER_KEY, (item as UserItem).user)
+            intent.putExtra(Constants.USER_KEY, (item as UserItem).user)
             startActivity(intent)
             finish()
         }

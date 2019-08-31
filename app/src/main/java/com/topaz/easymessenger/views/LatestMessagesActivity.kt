@@ -14,7 +14,7 @@ import com.topaz.easymessenger.data.ChatMessage
 import com.topaz.easymessenger.data.User
 import com.topaz.easymessenger.presenters.LatestMessagesPresenter
 import com.topaz.easymessenger.adapters.LatestMessagesItem
-import com.topaz.easymessenger.views.NewMessageActivity.Companion.USER_KEY
+import com.topaz.easymessenger.utils.Constants
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_latest_messages.*
@@ -33,7 +33,7 @@ class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View 
         setContentView(R.layout.activity_latest_messages)
         adapter.setOnItemClickListener { item, view ->
             val intent = Intent(this, ChatLogActivity::class.java)
-            intent.putExtra(USER_KEY, (item as LatestMessagesItem).userPartner)
+            intent.putExtra(Constants.USER_KEY, (item as LatestMessagesItem).userPartner)
             view.read_mark.visibility = View.GONE
             presenter.setMessageRead(item.chatMessage)
             startActivity(intent)
@@ -81,6 +81,11 @@ class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View 
 
             R.id.menu_sign_out -> {
                 presenter.signOut()
+            }
+
+            R.id.profile_settings -> {
+                val intent = Intent(this, ProfileSettingsActivity::class.java)
+                startActivity(intent)
             }
         }
         return super.onOptionsItemSelected(item)
