@@ -18,6 +18,7 @@ import com.topaz.easymessenger.views.NewMessageActivity.Companion.USER_KEY
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_latest_messages.*
+import kotlinx.android.synthetic.main.latest_messages_row.view.*
 
 class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View {
     companion object {
@@ -33,6 +34,8 @@ class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View 
         adapter.setOnItemClickListener { item, view ->
             val intent = Intent(this, ChatLogActivity::class.java)
             intent.putExtra(USER_KEY, (item as LatestMessagesItem).userPartner)
+            view.read_mark.visibility = View.GONE
+            presenter.setMessageRead(item.chatMessage)
             startActivity(intent)
         }
         latest_messages_recycler.adapter = adapter
