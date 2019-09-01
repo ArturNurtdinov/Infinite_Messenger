@@ -51,6 +51,12 @@ class ProfileSettingsModel(private val onDataReady: ProfileSettingsContract.OnDa
         refUser.setValue(username)
     }
 
+    override fun resetPassword() {
+        val auth = FirebaseAuth.getInstance()
+        auth.sendPasswordResetEmail(auth.currentUser?.email.toString())
+        auth.signOut()
+    }
+
     private fun changeAvatar(uri: Uri?, user: User) {
         //remove old
         if (user.profileImageURL != "") {

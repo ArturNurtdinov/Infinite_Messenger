@@ -1,6 +1,7 @@
 package com.topaz.easymessenger.views
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -32,7 +33,7 @@ class ProfileSettingsActivity : AppCompatActivity(), ProfileSettingsContract.Vie
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_settings)
 
-        supportActionBar?.title = "Settings"
+        supportActionBar?.title = getString(R.string.settings)
         presenter.fetchUser()
 
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -49,6 +50,28 @@ class ProfileSettingsActivity : AppCompatActivity(), ProfileSettingsContract.Vie
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = "image/*"
             startActivityForResult(intent, 0)
+        }
+
+        reset_password.setOnClickListener {
+            val dialog = AlertDialog.Builder(this)
+                .setTitle(getString(R.string.reset_password))
+                .setMessage(getString(R.string.do_you_really_want_to_reset_password))
+                .setPositiveButton(getString(R.string.yes)) { _, _ ->
+                    presenter.resetPassword()
+                    Toast.makeText(
+                        this,
+                        getString(R.string.password_change_mail_sent),
+                        Toast.LENGTH_LONG
+                    ).show()
+                    val intent = Intent(this, LoginActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK.or(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    startActivity(intent)
+                }
+                .setNegativeButton(getString(R.string.no)) { _, _ -> }
+                .setNeutralButton(getString(R.string.cancel)) { _, _ -> }
+                .setCancelable(true)
+                .create()
+            dialog.show()
         }
     }
 

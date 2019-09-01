@@ -16,6 +16,7 @@ interface ProfileSettingsContract {
         fun loadPic(view: ImageView, uri: String?)
         fun setNewAvatar(uri: Uri?)
         fun setNewUsername(username: String)
+        fun resetPassword()
     }
 
     interface Model {
@@ -23,6 +24,7 @@ interface ProfileSettingsContract {
         fun loadPic(view: ImageView, uri: String?)
         fun setNewAvatar(uri: Uri?)
         fun setNewUsername(username: String)
+        fun resetPassword()
     }
 
     interface OnDataReady {

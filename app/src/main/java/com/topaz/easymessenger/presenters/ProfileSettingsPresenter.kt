@@ -27,6 +27,10 @@ class ProfileSettingsPresenter(private val view: ProfileSettingsContract.View) :
         model.setNewUsername(username)
     }
 
+    override fun resetPassword() {
+        model.resetPassword()
+    }
+
     override fun onUserFetched(user: User) {
         view.initializeViewWithUser(user)
         view.hideProgressBar()
