@@ -27,7 +27,7 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="cancel">Cancel</string>
-    <string name="password_change_mail_sent">Password change mail sent to your email address</string>
+    <string name="password_change_mail_sent">Password change mail was sent to your email address</string>
     <string name="settings">Settings</string>
     <string name="changes_performed">Changes performed</string>
     <string name="wrong_username">Wrong username</string>
