@@ -39,7 +39,6 @@ class ProfileSettingsActivity : AppCompatActivity(), ProfileSettingsContract.Vie
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
         edit_profile_username.setOnClickListener {
-            profile_username.inputType = InputType.TYPE_TEXT_VARIATION_PERSON_NAME
             imm.showSoftInput(profile_username, InputMethodManager.SHOW_IMPLICIT)
             profile_username.requestFocus()
             profile_username.setSelection(profile_username.text.length)
@@ -101,13 +100,21 @@ class ProfileSettingsActivity : AppCompatActivity(), ProfileSettingsContract.Vie
         when (item?.itemId) {
             R.id.perform_changes -> {
                 if (isNameChanged) {
-                    presenter.setNewUsername(profile_username.text.toString())
+                    val newUsername = profile_username.text.toString()
+                    if (newUsername.isEmpty() || newUsername.length > Constants.MAX_USERNAME_LENGTH) {
+                        profile_username.requestFocus()
+                        profile_username.setSelection(profile_username.text.length)
+                        Toast.makeText(this, getString(R.string.wrong_username), Toast.LENGTH_SHORT).show()
+                    } else {
+                        presenter.setNewUsername(profile_username.text.toString())
+                    }
                 }
                 if (isAvatarChanged) {
                     presenter.setNewAvatar(selectedPhotoUri)
                 }
                 if (isNameChanged || isAvatarChanged) {
-                    Toast.makeText(this, "Changes performed", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.changes_performed), Toast.LENGTH_SHORT)
+                        .show()
                 }
                 finish()
             }
