@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.topaz.easymessenger">
+    package="com.infinitevoid.easymessenger">
 
     <application
         android:allowBackup="true"
@@ -10,19 +10,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".views.ProfileSettingsActivity">
+        <activity android:name="com.infinitevoid.easymessenger.views.ProfileSettingsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".views.LatestMessagesActivity" />
+                android:value="com.infinitevoid.easymessenger.views.LatestMessagesActivity" />
         </activity>
         <activity
-            android:name=".views.ChatLogActivity"
+            android:name="com.infinitevoid.easymessenger.views.ChatLogActivity"
             android:windowSoftInputMode="stateHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".views.LatestMessagesActivity" />
+                android:value="com.infinitevoid.easymessenger.views.LatestMessagesActivity" />
         </activity>
-        <activity android:name=".views.NewMessageActivity">
+        <activity android:name="com.infinitevoid.easymessenger.views.NewMessageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
                 <action android:name="android.intent.action.VIEW" />
@@ -30,17 +30,17 @@
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".views.LatestMessagesActivity" />
+                android:value="com.infinitevoid.easymessenger.views.LatestMessagesActivity" />
         </activity>
-        <activity android:name=".views.LatestMessagesActivity">
+        <activity android:name="com.infinitevoid.easymessenger.views.LatestMessagesActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".views.LoginActivity" />
-        <activity android:name=".views.RegisterActivity" />
+        <activity android:name="com.infinitevoid.easymessenger.views.LoginActivity" />
+        <activity android:name="com.infinitevoid.easymessenger.views.RegisterActivity" />
     </application>
 
 </manifest>
