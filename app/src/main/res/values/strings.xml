@@ -22,4 +22,11 @@
     <string name="edit_UC">EDIT</string>
     <string name="username_with_two_points">Username:</string>
     <string name="perform">Perform</string>
+    <string name="reset_password">Reset password</string>
+    <string name="do_you_really_want_to_reset_password">Do you really want to reset your password?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="cancel">Cancel</string>
+    <string name="password_change_mail_sent">Password change mail sent to your email address</string>
+    <string name="settings">Settings</string>
 </resources>
