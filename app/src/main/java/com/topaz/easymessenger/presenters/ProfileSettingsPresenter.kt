@@ -1,5 +1,6 @@
 package com.topaz.easymessenger.presenters
 
+import android.net.Uri
 import android.widget.ImageView
 import com.topaz.easymessenger.contracts.ProfileSettingsContract
 import com.topaz.easymessenger.data.User
@@ -18,6 +19,13 @@ class ProfileSettingsPresenter(private val view: ProfileSettingsContract.View) :
         model.loadPic(view, uri)
     }
 
+    override fun setNewAvatar(uri: Uri?) {
+        model.setNewAvatar(uri)
+    }
+
+    override fun setNewUsername(username: String) {
+        model.setNewUsername(username)
+    }
 
     override fun onUserFetched(user: User) {
         view.initializeViewWithUser(user)
