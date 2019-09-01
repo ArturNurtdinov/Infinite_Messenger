@@ -18,4 +18,8 @@
     <string name="search">Search</string>
     <string name="menu">Menu</string>
     <string name="search_2">Search</string>
+    <string name="profile_settings">Profile settings</string>
+    <string name="edit_UC">EDIT</string>
+    <string name="username_with_two_points">Username:</string>
+    <string name="perform">Perform</string>
 </resources>
