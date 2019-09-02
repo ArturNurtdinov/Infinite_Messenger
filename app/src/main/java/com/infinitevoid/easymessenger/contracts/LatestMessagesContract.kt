@@ -10,6 +10,7 @@ interface LatestMessagesContract {
         fun verifyIsLogged(): Boolean
         fun signOut()
         fun setMessageRead(message: ChatMessage)
+        fun setPersonalNotificationListener(message: ChatMessage)
     }
 
     interface Presenter {
@@ -18,6 +19,7 @@ interface LatestMessagesContract {
         fun verifyIsLogged()
         fun signOut()
         fun setMessageRead(message: ChatMessage)
+        fun setPersonalNotificationListener(message: ChatMessage)
     }
 
     interface View {
@@ -27,11 +29,13 @@ interface LatestMessagesContract {
         fun isNotLogged()
         fun onSignOut()
         fun initializeUser(user: User?)
+        fun setNotification(chatMessage: ChatMessage, user: User)
     }
 
     interface OnDataReady {
         fun onLatestChanged(chatMessage: ChatMessage, key: String)
         fun onLatestAdded(chatMessage: ChatMessage, key: String)
         fun sendUser(user: User?)
+        fun setNotification(chatMessage: ChatMessage, user: User)
     }
 }
