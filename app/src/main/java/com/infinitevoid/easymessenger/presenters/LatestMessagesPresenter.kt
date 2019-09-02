@@ -21,6 +21,14 @@ class LatestMessagesPresenter(private val view: LatestMessagesContract.View) :
         model.setListenerForLatest()
     }
 
+    override fun setPersonalNotificationListener(message: ChatMessage) {
+        model.setPersonalNotificationListener(message)
+    }
+
+    override fun setNotification(chatMessage: ChatMessage, user: User) {
+        view.setNotification(chatMessage, user)
+    }
+
     override fun onLatestChanged(chatMessage: ChatMessage, key: String) {
         view.onLatestChanged(chatMessage, key)
     }

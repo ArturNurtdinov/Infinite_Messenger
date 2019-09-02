@@ -4,6 +4,7 @@ package com.infinitevoid.easymessenger.views
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -36,7 +37,7 @@ class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View 
             intent.putExtra(Constants.USER_KEY, (item as LatestMessagesItem).userPartner)
             intent.putExtra(Constants.MESSAGE_KEY, item.chatMessage)
             view.read_mark.visibility = View.GONE
-            if (item.chatMessage.read == "false") {
+            if ((item.chatMessage.read == "false") && (item.chatMessage.fromId != currentUser?.uid)) {
                 presenter.setMessageRead(item.chatMessage)
             }
             startActivity(intent)
@@ -62,6 +63,7 @@ class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View 
     override fun onLatestChanged(chatMessage: ChatMessage, key: String) {
         latestMessagesMap[key] = chatMessage
         adapter.clear()
+        presenter.setPersonalNotificationListener(chatMessage)
         latestMessagesMap.toSortedMap(compareBy { -latestMessagesMap[it]?.timestamp!! })
             .values.forEach {
             adapter.add(LatestMessagesItem(it))
@@ -72,10 +74,15 @@ class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View 
         latestMessagesMap[key] = chatMessage
         adapter.clear()
         progress_bar.visibility = View.GONE
+        presenter.setPersonalNotificationListener(chatMessage)
         latestMessagesMap.toSortedMap(compareBy { -latestMessagesMap[it]?.timestamp!! })
             .values.forEach {
             adapter.add(LatestMessagesItem(it))
         }
+    }
+
+    override fun setNotification(chatMessage: ChatMessage, user: User) {
+        //TODO Perform notification
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
