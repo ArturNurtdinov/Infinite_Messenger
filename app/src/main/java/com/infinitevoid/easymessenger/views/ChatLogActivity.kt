@@ -37,7 +37,7 @@ class ChatLogActivity : AppCompatActivity(), ChatLogContract.View {
         send.setOnClickListener {
             presenter.sendMessage(chat_log.text.toString(), toUser.uid)
             chat_log.text.clear()
-            chat_log_recycler.scrollToPosition(adapter.itemCount - 1)
+            chat_log_recycler.scrollToPosition(adapter.itemCount    )
         }
     }
 
