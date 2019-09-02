@@ -7,5 +7,7 @@ class Constants {
         const val USER_KEY = "USER_KEY"
         const val MESSAGE_KEY = "MESSAGE_KEY"
         const val MAX_USERNAME_LENGTH = 30
+        const val CHANNEL_NAME = "Chat"
+        const val CHANNEL_ID = "ID01"
     }
 }
