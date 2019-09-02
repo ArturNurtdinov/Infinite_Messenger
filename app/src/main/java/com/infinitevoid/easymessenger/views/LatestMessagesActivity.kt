@@ -35,7 +35,9 @@ class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View 
             val intent = Intent(this, ChatLogActivity::class.java)
             intent.putExtra(Constants.USER_KEY, (item as LatestMessagesItem).userPartner)
             view.read_mark.visibility = View.GONE
-            presenter.setMessageRead(item.chatMessage)
+            if (item.chatMessage.read == "false") {
+                presenter.setMessageRead(item.chatMessage)
+            }
             startActivity(intent)
         }
         latest_messages_recycler.adapter = adapter
