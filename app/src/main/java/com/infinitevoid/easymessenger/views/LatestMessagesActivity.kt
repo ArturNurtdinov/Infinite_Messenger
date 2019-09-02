@@ -1,13 +1,18 @@
 package com.infinitevoid.easymessenger.views
 
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.core.app.NotificationCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.infinitevoid.easymessenger.R
 import com.infinitevoid.easymessenger.contracts.LatestMessagesContract
@@ -26,6 +31,8 @@ class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View 
         var currentUser: User? = null
     }
 
+    private var notificationManager: NotificationManager? = null
+    private var channel: NotificationChannel? = null
     private val presenter = LatestMessagesPresenter(this)
     private val adapter = GroupAdapter<ViewHolder>()
     private val latestMessagesMap = LinkedHashMap<String, ChatMessage>()
@@ -49,6 +56,15 @@ class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View 
                 DividerItemDecoration.VERTICAL
             )
         )
+        notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            channel = NotificationChannel(
+                Constants.CHANNEL_ID,
+                Constants.CHANNEL_NAME,
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
+            notificationManager?.createNotificationChannel(channel ?: return)
+        }
         presenter.verifyIsLogged()
     }
 
@@ -81,8 +97,24 @@ class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View 
         }
     }
 
+    private var id = 0
     override fun setNotification(chatMessage: ChatMessage, user: User) {
-        //TODO Perform notification
+        val intent = Intent(this, LatestMessagesActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        val pendingIntent =
+            PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_NO_CREATE)
+        if (chatMessage.read == "false") {
+            val notification = NotificationCompat.Builder(this, Constants.CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_notification)
+                .setContentTitle(user.username)
+                .setContentIntent(pendingIntent)
+                .setWhen(System.currentTimeMillis())
+                .setContentText(chatMessage.message)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setAutoCancel(true)
+                .build()
+            notificationManager?.notify(++id, notification)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

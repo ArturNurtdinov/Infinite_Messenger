@@ -12,22 +12,22 @@ class LatestMessagesModel(private val onDataReady: LatestMessagesContract.OnData
     override fun setMessageRead(message: ChatMessage) {
         val refLatestFromTo =
             FirebaseDatabase.getInstance()
-                .getReference("/latest-messages/${message.fromId}/${message.toId}")
+                .getReference("/latest-messages/${message.fromId}/${message.toId}/read")
         val refLatestToFrom =
             FirebaseDatabase.getInstance()
-                .getReference("/latest-messages/${message.toId}/${message.fromId}")
+                .getReference("/latest-messages/${message.toId}/${message.fromId}/read")
         val refUserMesToFrom =
             FirebaseDatabase.getInstance()
-                .getReference("/user-messages/${message.toId}/${message.fromId}/${message.id}")
+                .getReference("/user-messages/${message.toId}/${message.fromId}/${message.id}/read")
         val refUserMesFromTo =
             FirebaseDatabase.getInstance()
-                .getReference("/user-messages/${message.fromId}/${message.toId}/${message.id}")
+                .getReference("/user-messages/${message.fromId}/${message.toId}/${message.id}/read")
         message.read = "true"
 
-        refLatestFromTo.setValue(message)
-        refLatestToFrom.setValue(message)
-        refUserMesFromTo.setValue(message)
-        refUserMesToFrom.setValue(message)
+        refLatestFromTo.setValue("true")
+        refLatestToFrom.setValue("true")
+        refUserMesFromTo.setValue("true")
+        refUserMesToFrom.setValue("true")
     }
 
     override fun verifyIsLogged(): Boolean {
