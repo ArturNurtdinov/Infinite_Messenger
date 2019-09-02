@@ -34,6 +34,7 @@ class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View 
         adapter.setOnItemClickListener { item, view ->
             val intent = Intent(this, ChatLogActivity::class.java)
             intent.putExtra(Constants.USER_KEY, (item as LatestMessagesItem).userPartner)
+            intent.putExtra(Constants.MESSAGE_KEY, item.chatMessage)
             view.read_mark.visibility = View.GONE
             if (item.chatMessage.read == "false") {
                 presenter.setMessageRead(item.chatMessage)

@@ -9,12 +9,11 @@ import com.infinitevoid.easymessenger.contracts.ChatLogContract
 import com.infinitevoid.easymessenger.data.ChatMessage
 
 class ChatLogModel(private val listener: ChatLogContract.ChangeListener) : ChatLogContract.Model {
-    override fun setListenerForMessages(toId: String) {
 
+    override fun setListenerForMessages(toId: String) {
         val fromId = FirebaseAuth.getInstance().uid ?: return
         val ref = FirebaseDatabase.getInstance().getReference("/user-messages/$fromId/$toId")
-
-        ref.orderByValue().addChildEventListener(object : ChildEventListener {
+        ref.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(p0: DataSnapshot, p1: String?) {
                 val chatMessage = p0.getValue(ChatMessage::class.java) ?: return
                 val key = chatMessage.fromId == FirebaseAuth.getInstance().uid

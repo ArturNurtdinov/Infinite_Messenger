@@ -2,6 +2,9 @@ package com.infinitevoid.easymessenger.views
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.infinitevoid.easymessenger.R
 import com.infinitevoid.easymessenger.contracts.ChatLogContract
 import com.infinitevoid.easymessenger.adapters.ChatFromItem
@@ -16,6 +19,7 @@ import kotlinx.android.synthetic.main.activity_chat_log.*
 
 class ChatLogActivity : AppCompatActivity(), ChatLogContract.View {
     private lateinit var toUser: User
+    private lateinit var latestMessage: ChatMessage
     private val adapter = GroupAdapter<ViewHolder>()
     private val presenter = ChatLogPresenter(this)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,6 +27,7 @@ class ChatLogActivity : AppCompatActivity(), ChatLogContract.View {
         setContentView(R.layout.activity_chat_log)
 
         toUser = intent.getParcelableExtra(Constants.USER_KEY)
+        latestMessage = intent.getParcelableExtra(Constants.MESSAGE_KEY)
         supportActionBar?.title = toUser.username
 
         chat_log_recycler.adapter = adapter
@@ -38,14 +43,16 @@ class ChatLogActivity : AppCompatActivity(), ChatLogContract.View {
 
     override fun showMessageFrom(message: ChatMessage) {
         adapter.add(ChatFromItem(message, toUser))
-        adapter.notifyDataSetChanged()
-        chat_log_recycler.scrollToPosition(adapter.itemCount - 1)
+        if ((message.message == latestMessage.message) && (message.timestamp == latestMessage.timestamp)) {
+            chat_log_recycler.scrollToPosition(adapter.itemCount - 1)
+        }
     }
 
     override fun showMessageTo(message: ChatMessage) {
         val currentUser = LatestMessagesActivity.currentUser ?: return
         adapter.add(ChatToItem(message, currentUser))
-        adapter.notifyDataSetChanged()
-        chat_log_recycler.scrollToPosition(adapter.itemCount - 1)
+        if ((message.message == latestMessage.message) && (message.timestamp == latestMessage.timestamp)) {
+            chat_log_recycler.scrollToPosition(adapter.itemCount - 1)
+        }
     }
 }
