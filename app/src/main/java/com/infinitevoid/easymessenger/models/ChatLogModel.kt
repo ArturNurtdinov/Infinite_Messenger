@@ -14,7 +14,7 @@ class ChatLogModel(private val listener: ChatLogContract.ChangeListener) : ChatL
         val fromId = FirebaseAuth.getInstance().uid ?: return
         val ref = FirebaseDatabase.getInstance().getReference("/user-messages/$fromId/$toId")
 
-        ref.addChildEventListener(object : ChildEventListener {
+        ref.orderByValue().addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(p0: DataSnapshot, p1: String?) {
                 val chatMessage = p0.getValue(ChatMessage::class.java) ?: return
                 val key = chatMessage.fromId == FirebaseAuth.getInstance().uid
