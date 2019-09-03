@@ -1,12 +1,15 @@
 package com.infinitevoid.easymessenger.models
 
+import android.net.Uri
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
 import com.infinitevoid.easymessenger.contracts.ChatLogContract
 import com.infinitevoid.easymessenger.data.ChatMessage
+import java.util.*
 
 class ChatLogModel(private val listener: ChatLogContract.ChangeListener) : ChatLogContract.Model {
 
@@ -34,7 +37,22 @@ class ChatLogModel(private val listener: ChatLogContract.ChangeListener) : ChatL
         })
     }
 
-    override fun sendMessage(text: String, toId: String) {
+    override fun sendMessage(text: String, toId: String, uri: Uri?) {
+        if (uri == null) {
+            sendMessageWithImageURL(text, toId, "")
+        } else {
+            val filename = UUID.randomUUID().toString()
+            val ref = FirebaseStorage.getInstance().getReference("message_images/$filename")
+            ref.putFile(uri)
+                .addOnSuccessListener {
+                    ref.downloadUrl.addOnSuccessListener {
+                        sendMessageWithImageURL(text, toId, it.toString())
+                    }
+                }
+        }
+    }
+
+    private fun sendMessageWithImageURL(text: String, toId: String, imageURL: String) {
         val fromId = FirebaseAuth.getInstance().uid ?: return
 
         val ref = FirebaseDatabase.getInstance().getReference("/user-messages/$fromId/$toId").push()
@@ -55,6 +73,7 @@ class ChatLogModel(private val listener: ChatLogContract.ChangeListener) : ChatL
                 fromId,
                 toId,
                 System.currentTimeMillis() / 1000,
+                imageURL,
                 "false"
             )
         ref.setValue(chatMessage)
