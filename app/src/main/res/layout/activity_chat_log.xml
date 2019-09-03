@@ -17,6 +17,17 @@
         android:inputType="textMultiLine"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/send"
+        app:layout_constraintStart_toEndOf="@id/choose_file" />
+
+    <ImageButton
+        android:id="@+id/choose_file"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="8dp"
+        android:background="@android:color/white"
+        android:contentDescription="@string/choose_file"
+        android:src="@drawable/ic_image_holo_blue_light_50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
@@ -29,6 +40,15 @@
         android:src="@drawable/ic_send_white_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/choose_mark"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:visibility="gone"
+        android:background="@drawable/rounded_choose_mark"
+        app:layout_constraintEnd_toEndOf="@id/choose_file"
+        app:layout_constraintTop_toTopOf="@id/choose_file" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chat_log_recycler"
