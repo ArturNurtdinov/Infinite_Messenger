@@ -38,7 +38,7 @@ class ChatLogActivity : AppCompatActivity(), ChatLogContract.View {
         presenter.setListenerForMessages(chatPartner.uid)
 
         send.setOnClickListener {
-            if ((selectedImageUri?.toString() == "") && (chat_log.text.toString() == "")) {
+            if (((selectedImageUri?.toString() == "") || (selectedImageUri == null)) && (chat_log.text.toString() == "")) {
                 Toast.makeText(
                     this,
                     getString(R.string.type_smth_or_choose_an_image_to_send),
