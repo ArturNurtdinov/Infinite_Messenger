@@ -1,5 +1,6 @@
 package com.infinitevoid.easymessenger.adapters
 
+import android.view.View
 import com.squareup.picasso.Picasso
 import com.infinitevoid.easymessenger.R
 import com.infinitevoid.easymessenger.data.ChatMessage
@@ -11,7 +12,8 @@ import kotlinx.android.synthetic.main.chat_to_row.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ChatToItem(private val chatMessage: ChatMessage, private val user: User) : Item<ViewHolder>() {
+class ChatToItem(private val chatMessage: ChatMessage, private val user: User) :
+    Item<ViewHolder>() {
     override fun bind(viewHolder: ViewHolder, position: Int) {
         val date = Date(chatMessage.timestamp * 1000)
         val dateFormat =
@@ -20,12 +22,23 @@ class ChatToItem(private val chatMessage: ChatMessage, private val user: User) :
             } else {
                 SimpleDateFormat("MMM d", Locale.getDefault())
             }
-        viewHolder.itemView.message.text = chatMessage.message.plus("\n").plus(dateFormat.format(date))
+        viewHolder.itemView.message.text = chatMessage.message
+        viewHolder.itemView.date_text.text = dateFormat.format(date)
         if (user.profileImageURL != "") {
             Picasso.get().load(user.profileImageURL).into(viewHolder.itemView.profile_picture)
         } else {
             Picasso.get().load(Constants.DEFAULT_AVATAR_URL)
                 .into(viewHolder.itemView.profile_picture)
+        }
+
+        if (chatMessage.imageURL != "") {
+            Picasso.get().load(chatMessage.imageURL).resize(500, 700)
+                .into(viewHolder.itemView.message_image)
+            viewHolder.itemView.message_image.visibility = View.VISIBLE
+        }
+
+        viewHolder.itemView.setOnClickListener {
+            viewHolder.itemView.message_image.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
         }
     }
 
