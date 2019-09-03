@@ -21,7 +21,7 @@ class RegisterModel(private val listener: RegisterContract.OnRegisterListener) :
         val auth = FirebaseAuth.getInstance()
         auth.createUserWithEmailAndPassword(email, password)
             .addOnSuccessListener {
-                Log.d(RegisterActivity.TAG, "Added user with uid ${it.user.uid}")
+                Log.d(RegisterActivity.TAG, "Added user with uid ${it.user?.uid}")
                 if (uri != null) {
                     saveProfilePicture(username, uri)
                 } else {
