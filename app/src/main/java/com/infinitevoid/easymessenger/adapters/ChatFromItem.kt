@@ -40,8 +40,5 @@ class ChatFromItem(private val chatMessage: ChatMessage, private val user: User)
                 .into(viewHolder.itemView.message_image)
             viewHolder.itemView.message_image.visibility = View.VISIBLE
         }
-
-        viewHolder.itemView.message_image.setOnClickListener {
-        }
     }
 }

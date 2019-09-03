@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toStartOf="@id/profile_picture"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
+        <com.dmallcott.dismissibleimageview.DismissibleImageView
             android:id="@+id/message_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
