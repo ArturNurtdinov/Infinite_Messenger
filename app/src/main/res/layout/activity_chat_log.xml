@@ -45,8 +45,8 @@
         android:id="@+id/choose_mark"
         android:layout_width="12dp"
         android:layout_height="12dp"
-        android:visibility="gone"
         android:background="@drawable/rounded_choose_mark"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@id/choose_file"
         app:layout_constraintTop_toTopOf="@id/choose_file" />
 
@@ -56,6 +56,7 @@
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
         android:background="#3D5C56"
+        android:padding="4dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@+id/chat_log"
         app:layout_constraintEnd_toEndOf="parent"
