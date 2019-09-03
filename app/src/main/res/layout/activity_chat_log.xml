@@ -50,10 +50,37 @@
         app:layout_constraintEnd_toEndOf="@id/choose_file"
         app:layout_constraintTop_toTopOf="@id/choose_file" />
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@android:color/holo_blue_light"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ProgressBar
+                android:id="@+id/loading_mark"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_margin="4dp"
+                android:indeterminate="true"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.appcompat.widget.Toolbar>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chat_log_recycler"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="?attr/actionBarSize"
         android:layout_marginBottom="8dp"
         android:background="#3D5C56"
         android:padding="4dp"
@@ -61,5 +88,5 @@
         app:layout_constraintBottom_toTopOf="@+id/chat_log"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/my_toolbar" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -28,10 +28,11 @@ class ChatLogActivity : AppCompatActivity(), ChatLogContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat_log)
+        setSupportActionBar(findViewById(R.id.my_toolbar))
 
         chatPartner = intent.getParcelableExtra(Constants.USER_KEY)
         latestMessage = intent.getParcelableExtra(Constants.MESSAGE_KEY)
-        supportActionBar?.title = chatPartner.username
+        my_toolbar.title = chatPartner.username
 
         chat_log_recycler.adapter = adapter
 
@@ -48,6 +49,8 @@ class ChatLogActivity : AppCompatActivity(), ChatLogContract.View {
                 presenter.sendMessage(chat_log.text.toString(), chatPartner.uid, selectedImageUri)
                 chat_log.text.clear()
                 choose_mark.visibility = View.GONE
+                selectedImageUri = null
+                loading_mark.visibility = View.VISIBLE
             }
         }
 
@@ -71,6 +74,7 @@ class ChatLogActivity : AppCompatActivity(), ChatLogContract.View {
         if (message.fromId == currentUser.uid) {
             chat_log_recycler.scrollToPosition(adapter.itemCount - 1)
         }
+        loading_mark.visibility = View.GONE
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
