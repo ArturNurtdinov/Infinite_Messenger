@@ -6,6 +6,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import com.infinitevoid.easymessenger.R
 import com.infinitevoid.easymessenger.contracts.ChatLogContract
 import com.infinitevoid.easymessenger.adapters.ChatFromItem
@@ -19,7 +20,7 @@ import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_chat_log.*
 
 class ChatLogActivity : AppCompatActivity(), ChatLogContract.View {
-    private lateinit var toUser: User
+    private lateinit var chatPartner: User
     private var latestMessage: ChatMessage? = null
     private val adapter = GroupAdapter<ViewHolder>()
     private val presenter = ChatLogPresenter(this)
@@ -28,18 +29,26 @@ class ChatLogActivity : AppCompatActivity(), ChatLogContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat_log)
 
-        toUser = intent.getParcelableExtra(Constants.USER_KEY)
+        chatPartner = intent.getParcelableExtra(Constants.USER_KEY)
         latestMessage = intent.getParcelableExtra(Constants.MESSAGE_KEY)
-        supportActionBar?.title = toUser.username
+        supportActionBar?.title = chatPartner.username
 
         chat_log_recycler.adapter = adapter
 
-        presenter.setListenerForMessages(toUser.uid)
+        presenter.setListenerForMessages(chatPartner.uid)
 
         send.setOnClickListener {
-            presenter.sendMessage(chat_log.text.toString(), toUser.uid, selectedImageUri)
-            chat_log.text.clear()
-            choose_mark.visibility = View.GONE
+            if ((selectedImageUri?.toString() == "") && (chat_log.text.toString() == "")) {
+                Toast.makeText(
+                    this,
+                    getString(R.string.type_smth_or_choose_an_image_to_send),
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                presenter.sendMessage(chat_log.text.toString(), chatPartner.uid, selectedImageUri)
+                chat_log.text.clear()
+                choose_mark.visibility = View.GONE
+            }
         }
 
         choose_file.setOnClickListener {
@@ -50,7 +59,7 @@ class ChatLogActivity : AppCompatActivity(), ChatLogContract.View {
     }
 
     override fun showMessageFrom(message: ChatMessage) {
-        adapter.add(ChatFromItem(message, toUser))
+        adapter.add(ChatFromItem(message, chatPartner))
         if ((message.message == latestMessage?.message) && (message.timestamp == latestMessage?.timestamp)) {
             chat_log_recycler.scrollToPosition(adapter.itemCount - 1)
         }
@@ -66,7 +75,6 @@ class ChatLogActivity : AppCompatActivity(), ChatLogContract.View {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
         if (requestCode == 1 && resultCode == Activity.RESULT_OK && data != null) {
             selectedImageUri = data.data
             choose_mark.visibility = View.VISIBLE
