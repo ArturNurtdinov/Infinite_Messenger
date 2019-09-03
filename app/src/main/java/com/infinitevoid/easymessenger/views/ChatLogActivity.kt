@@ -39,7 +39,6 @@ class ChatLogActivity : AppCompatActivity(), ChatLogContract.View {
         send.setOnClickListener {
             presenter.sendMessage(chat_log.text.toString(), toUser.uid, selectedImageUri)
             chat_log.text.clear()
-            chat_log_recycler.scrollToPosition(adapter.itemCount)
             choose_mark.visibility = View.GONE
         }
 
@@ -60,7 +59,7 @@ class ChatLogActivity : AppCompatActivity(), ChatLogContract.View {
     override fun showMessageTo(message: ChatMessage) {
         val currentUser = LatestMessagesActivity.currentUser ?: return
         adapter.add(ChatToItem(message, currentUser))
-        if ((message.message == latestMessage?.message) && (message.timestamp == latestMessage?.timestamp)) {
+        if (message.fromId == currentUser.uid) {
             chat_log_recycler.scrollToPosition(adapter.itemCount - 1)
         }
     }
