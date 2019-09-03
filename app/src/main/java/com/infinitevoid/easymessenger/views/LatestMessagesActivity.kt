@@ -103,7 +103,7 @@ class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View 
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         val pendingIntent =
             PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_NO_CREATE)
-        if (chatMessage.read == "false") {
+        if ((chatMessage.read == "false") && (chatMessage.toId == currentUser?.uid)) {
             val notification = NotificationCompat.Builder(this, Constants.CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_notification)
                 .setContentTitle(user.username)
