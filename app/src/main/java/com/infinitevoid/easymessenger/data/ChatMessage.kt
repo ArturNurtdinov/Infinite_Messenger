@@ -10,7 +10,8 @@ data class ChatMessage(
     val fromId: String,
     val toId: String,
     val timestamp: Long,
+    val imageURL: String,
     var read: String
 ) : Parcelable {
-    constructor() : this("", "", "", "", -1, "false")
+    constructor() : this("", "", "", "", -1, "", "false")
 }
