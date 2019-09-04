@@ -32,6 +32,7 @@ class RegisterModel(private val listener: RegisterContract.OnRegisterListener) :
                 Log.d(RegisterActivity.TAG, "Registration failed: ${it.message}")
                 listener.onFailure(it.message.toString())
             }
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true)
         auth.currentUser?.sendEmailVerification()
     }
 

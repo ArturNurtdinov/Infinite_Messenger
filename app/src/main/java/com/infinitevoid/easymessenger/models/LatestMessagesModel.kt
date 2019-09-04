@@ -40,6 +40,7 @@ class LatestMessagesModel(private val onDataReady: LatestMessagesContract.OnData
 
     override fun fetchCurrentUser() {
         val uid = FirebaseAuth.getInstance().uid
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true)
         val ref = FirebaseDatabase.getInstance().getReference("/users/$uid")
         ref.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
