@@ -36,9 +36,9 @@ class ChatFromItem(private val chatMessage: ChatMessage, private val user: User)
         }
 
         if (chatMessage.imageURL != "") {
-            Picasso.get().load(chatMessage.imageURL).resize(500, 700)
-                .into(viewHolder.itemView.message_image)
             viewHolder.itemView.message_image.visibility = View.VISIBLE
+            Picasso.get().load(chatMessage.imageURL).resizeDimen(R.dimen.message_image_width, R.dimen.message_image_height)
+                .into(viewHolder.itemView.message_image)
         }
     }
 }

@@ -18,17 +18,15 @@
 
         <com.dmallcott.dismissibleimageview.DismissibleImageView
             android:id="@+id/message_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="250dp"
+            android:layout_height="300dp"
             android:contentDescription="@string/message_image"
-            android:maxWidth="280dp"
-            android:maxHeight="500dp"
             android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@id/date_text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/message"
-            tools:layout_height="700px"
-            tools:layout_width="500px"
+            tools:layout_height="400dp"
+            tools:layout_width="250dp"
             tools:src="@tools:sample/backgrounds/scenic"
             tools:visibility="visible" />
 
@@ -38,7 +36,7 @@
             android:layout_height="wrap_content"
             android:maxWidth="280dp"
             android:paddingStart="8dp"
-            android:paddingTop="8dp"
+            android:paddingTop="4dp"
             android:paddingEnd="8dp"
             app:layout_constraintBottom_toTopOf="@id/message_image"
             app:layout_constraintStart_toStartOf="parent"
