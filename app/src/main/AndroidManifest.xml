@@ -17,7 +17,6 @@
         </activity>
         <activity
             android:name="com.infinitevoid.easymessenger.views.ChatLogActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:windowSoftInputMode="stateHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
