@@ -28,11 +28,10 @@ class ChatLogActivity : AppCompatActivity(), ChatLogContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat_log)
-        setSupportActionBar(findViewById(R.id.my_toolbar))
 
         chatPartner = intent.getParcelableExtra(Constants.USER_KEY)
         latestMessage = intent.getParcelableExtra(Constants.MESSAGE_KEY)
-        my_toolbar.title = chatPartner.username
+        supportActionBar?.title = chatPartner.username
 
         chat_log_recycler.adapter = adapter
 
@@ -46,11 +45,14 @@ class ChatLogActivity : AppCompatActivity(), ChatLogContract.View {
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
-                presenter.sendMessage(chat_log.text.toString(), chatPartner.uid, selectedImageUri)
+                presenter.sendMessage(
+                    chat_log.text.toString(),
+                    chatPartner.uid,
+                    selectedImageUri
+                )
                 chat_log.text.clear()
                 choose_mark.visibility = View.GONE
                 selectedImageUri = null
-                loading_mark.visibility = View.VISIBLE
             }
         }
 
@@ -59,11 +61,21 @@ class ChatLogActivity : AppCompatActivity(), ChatLogContract.View {
             intent.type = "image/*"
             startActivityForResult(intent, 1)
         }
+
+        chat_log_recycler.addOnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
+            if (chat_log.hasFocus()) {
+                chat_log_recycler.postDelayed({
+                    if (bottom < oldBottom) {
+                        chat_log_recycler.scrollBy(0, oldBottom - bottom)
+                    }
+                }, 100)
+            }
+        }
     }
 
     override fun showMessageFrom(message: ChatMessage) {
         adapter.add(ChatFromItem(message, chatPartner))
-        if ((message.message == latestMessage?.message) && (message.timestamp == latestMessage?.timestamp)) {
+        if (message.message == latestMessage?.message) {
             chat_log_recycler.scrollToPosition(adapter.itemCount - 1)
         }
     }
@@ -71,10 +83,9 @@ class ChatLogActivity : AppCompatActivity(), ChatLogContract.View {
     override fun showMessageTo(message: ChatMessage) {
         val currentUser = LatestMessagesActivity.currentUser ?: return
         adapter.add(ChatToItem(message, currentUser))
-        if (message.fromId == currentUser.uid) {
+        if (message.message == latestMessage?.message) {
             chat_log_recycler.scrollToPosition(adapter.itemCount - 1)
         }
-        loading_mark.visibility = View.GONE
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
