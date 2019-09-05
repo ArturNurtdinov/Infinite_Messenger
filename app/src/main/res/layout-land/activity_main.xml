@@ -87,7 +87,7 @@
             android:id="@+id/already_registered"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
+            android:layout_margin="8dp"
             android:text="@string/already_have_an_account"
             android:textColor="@android:color/white"
             android:textSize="16sp"
