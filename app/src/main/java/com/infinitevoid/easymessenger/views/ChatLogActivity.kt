@@ -45,11 +45,14 @@ class ChatLogActivity : AppCompatActivity(), ChatLogContract.View {
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
+                val message = ChatMessage("", chat_log.text.toString(), "", "", -1, "", "")
+                latestMessage = message
                 presenter.sendMessage(
                     chat_log.text.toString(),
                     chatPartner.uid,
                     selectedImageUri
                 )
+                loading_mark.visibility = View.VISIBLE
                 chat_log.text.clear()
                 choose_mark.visibility = View.GONE
                 selectedImageUri = null
@@ -83,6 +86,7 @@ class ChatLogActivity : AppCompatActivity(), ChatLogContract.View {
     override fun showMessageTo(message: ChatMessage) {
         val currentUser = LatestMessagesActivity.currentUser ?: return
         adapter.add(ChatToItem(message, currentUser))
+        loading_mark.visibility = View.GONE
         if (message.message == latestMessage?.message) {
             chat_log_recycler.scrollToPosition(adapter.itemCount - 1)
         }
