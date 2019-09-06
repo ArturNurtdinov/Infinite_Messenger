@@ -50,6 +50,16 @@
         app:layout_constraintEnd_toEndOf="@id/choose_file"
         app:layout_constraintTop_toTopOf="@id/choose_file" />
 
+    <ProgressBar
+        android:id="@+id/loading_mark"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:indeterminate="true"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@id/send"
+        app:layout_constraintTop_toTopOf="@id/send"
+        tools:visibility="visible" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chat_log_recycler"
         android:layout_width="0dp"
