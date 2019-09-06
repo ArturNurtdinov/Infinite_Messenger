@@ -77,31 +77,4 @@ class LatestMessagesModel(private val onDataReady: LatestMessagesContract.OnData
             }
         })
     }
-
-    override fun setPersonalNotificationListener(message: ChatMessage) {
-        val ref = FirebaseDatabase.getInstance().getReference("/users/${message.fromId}")
-        ref.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onCancelled(p0: DatabaseError) {
-
-            }
-
-            override fun onDataChange(p0: DataSnapshot) {
-                setNotificationWithUser(message, p0.getValue(User::class.java) ?: return)
-            }
-        })
-    }
-
-    private fun setNotificationWithUser(message: ChatMessage, user: User) {
-        val ref = FirebaseDatabase.getInstance()
-            .getReference("/latest-messages/${message.toId}/${message.fromId}/message")
-        ref.limitToLast(1).addValueEventListener(object : ValueEventListener {
-            override fun onCancelled(p0: DatabaseError) {
-            }
-
-            override fun onDataChange(p0: DataSnapshot) {
-                onDataReady.setNotification(message, user)
-            }
-
-        })
-    }
 }
