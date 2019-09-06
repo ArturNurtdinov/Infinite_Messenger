@@ -35,10 +35,8 @@ class ChatToItem(private val chatMessage: ChatMessage, private val user: User) :
             viewHolder.itemView.message_image.visibility = View.VISIBLE
             Picasso.get().load(chatMessage.imageURL).resizeDimen(R.dimen.message_image_width, R.dimen.message_image_height)
                 .into(viewHolder.itemView.message_image)
-        }
-
-        viewHolder.itemView.setOnClickListener {
-            viewHolder.itemView.message_image.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
+        } else {
+            viewHolder.itemView.message_image.visibility = View.GONE
         }
     }
 
