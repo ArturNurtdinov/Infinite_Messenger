@@ -12,6 +12,8 @@ import java.util.*
 
 class RegisterModel(private val listener: RegisterContract.OnRegisterListener) :
     RegisterContract.Model {
+    private val firebaseInstance: FirebaseDatabase = FirebaseDatabase.getInstance().apply { setPersistenceEnabled(true) }
+
     override fun registerWithEmailAndPassword(
         email: String,
         password: String,
@@ -21,7 +23,6 @@ class RegisterModel(private val listener: RegisterContract.OnRegisterListener) :
         val auth = FirebaseAuth.getInstance()
         auth.createUserWithEmailAndPassword(email, password)
             .addOnSuccessListener {
-                FirebaseDatabase.getInstance().setPersistenceEnabled(true)
                 Log.d(RegisterActivity.TAG, "Added user with uid ${it.user?.uid}")
                 if (uri != null) {
                     saveProfilePicture(username, uri)
@@ -55,7 +56,7 @@ class RegisterModel(private val listener: RegisterContract.OnRegisterListener) :
 
     private fun saveUserToDatabase(username: String, profileImageURL: String) {
         val uid = FirebaseAuth.getInstance().uid ?: ""
-        val ref = FirebaseDatabase.getInstance().getReference("/users/$uid")
+        val ref = firebaseInstance.getReference("/users/$uid")
 
         val user = User(uid, username, profileImageURL)
         ref.setValue(user)
