@@ -9,8 +9,13 @@ class LatestMessagesPresenter(private val view: LatestMessagesContract.View) :
     LatestMessagesContract.Presenter, LatestMessagesContract.OnDataReady {
     private val model = LatestMessagesModel(this)
 
+    private var currentUser: User? = null
     override fun fetchCurrentUser() {
-        model.fetchCurrentUser()
+        if (currentUser == null) {
+            model.fetchCurrentUser()
+        } else {
+            view.initializeUser(currentUser)
+        }
     }
 
     override fun setMessageRead(message: ChatMessage) {
@@ -43,6 +48,7 @@ class LatestMessagesPresenter(private val view: LatestMessagesContract.View) :
     }
 
     override fun sendUser(user: User?) {
+        currentUser = user
         view.initializeUser(user)
     }
 }
