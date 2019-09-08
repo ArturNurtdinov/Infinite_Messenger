@@ -21,6 +21,7 @@
         android:id="@+id/new_message_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/back"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
