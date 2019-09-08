@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Infinite Messenger</string>
+    <string name="name">Имя</string>
+    <string name="email">Email</string>
+    <string name="password">Пароль</string>
+    <string name="register_UC">РЕГИСТРАЦИЯ</string>
+    <string name="already_have_an_account">Уже есть аккаунт?</string>
+    <string name="need_an_account">Нужен аккаунт?</string>
+    <string name="login_UC">ВОЙТИ</string>
+    <string name="select_photo">Выбрать фото</string>
+    <string name="sign_out">Выйти</string>
+    <string name="new_message">Новое сообщение</string>
+    <string name="username">Имя пользователя</string>
+    <string name="send_UC">ОТПРАВИТЬ</string>
+    <string name="enter_text">Введите текст</string>
+    <string name="message">Сообщение</string>
+    <string name="select_user">Выберите пользователя</string>
+    <string name="search">Поиск</string>
+    <string name="menu">Меню</string>
+    <string name="search_2">Поиск</string>
+    <string name="profile_settings">Настройки профиля</string>
+    <string name="edit_UC">ИЗМЕНИТЬ</string>
+    <string name="username_with_two_points">Имя:</string>
+    <string name="perform">Perform</string>
+    <string name="reset_password">Сбросить пароль</string>
+    <string name="do_you_really_want_to_reset_password">Вы уверены что хотите сбросить пароль?</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="cancel">Отмена</string>
+    <string name="password_change_mail_sent">Письмо с инструкциями было отправлено вам на почту</string>
+    <string name="settings">Настройки</string>
+    <string name="changes_performed">Изменения сохранены</string>
+    <string name="wrong_username">Неверный формат имени</string>
+    <string name="choose_file">Выберите файл</string>
+    <string name="message_image">Фото</string>
+    <string name="type_smth_or_choose_an_image_to_send">Сначала введите текст или выберите фото</string>
+    <string name="registration_success">Регистрация прошла успешно</string>
+    <string name="registration_failed">Ошибка регистрации:</string>
+</resources>
