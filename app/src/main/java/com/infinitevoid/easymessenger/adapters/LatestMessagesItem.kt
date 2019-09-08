@@ -48,6 +48,7 @@ class LatestMessagesItem(val chatMessage: ChatMessage) :
         }
 
         val ref = FirebaseDatabase.getInstance().getReference("/users/$chatPartnerId")
+        ref.keepSynced(true)
         ref.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
             }
