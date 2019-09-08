@@ -20,7 +20,7 @@ import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_chat_log.*
 
 class ChatLogActivity : AppCompatActivity(), ChatLogContract.View {
-    private lateinit var chatPartner: User
+    private var chatPartner: User? = null
     private var latestMessage: ChatMessage? = null
     private val adapter = GroupAdapter<ViewHolder>()
     private val presenter = ChatLogPresenter(this)
@@ -31,11 +31,11 @@ class ChatLogActivity : AppCompatActivity(), ChatLogContract.View {
 
         chatPartner = intent.getParcelableExtra(Constants.USER_KEY)
         latestMessage = intent.getParcelableExtra(Constants.MESSAGE_KEY)
-        supportActionBar?.title = chatPartner.username
+        supportActionBar?.title = chatPartner?.username
 
         chat_log_recycler.adapter = adapter
 
-        presenter.setListenerForMessages(chatPartner.uid)
+        presenter.setListenerForMessages(chatPartner?.uid ?: return)
 
         send.setOnClickListener {
             if (((selectedImageUri?.toString() == "") || (selectedImageUri == null)) && (chat_log.text.toString() == "")) {
@@ -49,7 +49,7 @@ class ChatLogActivity : AppCompatActivity(), ChatLogContract.View {
                 latestMessage = message
                 presenter.sendMessage(
                     chat_log.text.toString(),
-                    chatPartner.uid,
+                    (chatPartner ?: return@setOnClickListener).uid,
                     selectedImageUri
                 )
                 loading_mark.visibility = View.VISIBLE
@@ -77,7 +77,7 @@ class ChatLogActivity : AppCompatActivity(), ChatLogContract.View {
     }
 
     override fun showMessageFrom(message: ChatMessage) {
-        adapter.add(ChatFromItem(message, chatPartner))
+        adapter.add(ChatFromItem(message, chatPartner ?: return))
         if (message.message == latestMessage?.message) {
             chat_log_recycler.scrollToPosition(adapter.itemCount - 1)
         }
