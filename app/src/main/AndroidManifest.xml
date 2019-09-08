@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.infinitevoid.easymessenger">
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
         android:fullBackupContent="true"
@@ -42,7 +43,5 @@
         <activity android:name="com.infinitevoid.easymessenger.views.LoginActivity" />
         <activity android:name="com.infinitevoid.easymessenger.views.RegisterActivity" />
     </application>
-
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
