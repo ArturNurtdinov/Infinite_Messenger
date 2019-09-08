@@ -11,7 +11,7 @@ Project started 15.08.2019
 ##### 5. **(Fixed)** Some values don't have translations
 
 # Wish-list
-1. Add dark mode
+1. **(Added)** Add dark mode
 2. Deleting messages in chat.
 3. **(Added)** Copy message text
 4. Pick themes color using palitra.
