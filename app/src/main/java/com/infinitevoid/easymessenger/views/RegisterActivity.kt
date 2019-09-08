@@ -66,13 +66,14 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
     }
 
     override fun onSuccess() {
-        Toast.makeText(this, "Registration success", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, getString(R.string.registration_success), Toast.LENGTH_LONG).show()
         val intent = Intent(this, LatestMessagesActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
     }
 
     override fun onFailure(message: String) {
-        Toast.makeText(this, "Registration failed: $message", Toast.LENGTH_LONG).show()
+        var failText = getString(R.string.registration_failed)
+        Toast.makeText(this, "$failText $message", Toast.LENGTH_LONG).show()
     }
 }
