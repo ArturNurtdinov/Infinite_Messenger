@@ -18,7 +18,7 @@
 
         <com.dmallcott.dismissibleimageview.DismissibleImageView
             android:id="@+id/message_image"
-            android:layout_width="wrap_content"
+            android:layout_width="250dp"
             android:layout_height="300dp"
             android:contentDescription="@string/message_image"
             android:visibility="visible"
