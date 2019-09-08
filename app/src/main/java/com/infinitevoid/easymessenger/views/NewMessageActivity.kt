@@ -10,6 +10,7 @@ import android.view.Menu
 import android.view.View
 import android.widget.SearchView
 import androidx.core.view.MenuItemCompat
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.infinitevoid.easymessenger.R
 import com.infinitevoid.easymessenger.adapters.UserItem
 import com.infinitevoid.easymessenger.contracts.NewMessageContract
@@ -43,6 +44,12 @@ class NewMessageActivity : AppCompatActivity(), NewMessageContract.View {
             finish()
         }
         new_message_recycler.adapter = adapter
+        new_message_recycler.addItemDecoration(
+            DividerItemDecoration(
+                this,
+                DividerItemDecoration.VERTICAL
+            )
+        )
         presenter.fetchUsers()
     }
 
