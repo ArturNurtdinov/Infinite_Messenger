@@ -89,13 +89,13 @@ class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View 
                 startActivity(intent)
             }
 
-            R.id.menu_sign_out -> {
-                presenter.signOut()
-            }
-
             R.id.profile_settings -> {
                 val intent = Intent(this, ProfileSettingsActivity::class.java)
                 startActivity(intent)
+            }
+
+            R.id.menu_sign_out -> {
+                presenter.signOut()
             }
         }
         return super.onOptionsItemSelected(item)
