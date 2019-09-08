@@ -3,7 +3,6 @@ package com.infinitevoid.easymessenger.models
 import android.net.Uri
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.infinitevoid.easymessenger.contracts.RegisterContract
 import com.infinitevoid.easymessenger.data.User
@@ -12,7 +11,6 @@ import java.util.*
 
 class RegisterModel(private val listener: RegisterContract.OnRegisterListener) :
     RegisterContract.Model {
-    private val firebaseInstance: FirebaseDatabase = FirebaseDatabase.getInstance().apply { setPersistenceEnabled(true) }
 
     override fun registerWithEmailAndPassword(
         email: String,
@@ -56,7 +54,7 @@ class RegisterModel(private val listener: RegisterContract.OnRegisterListener) :
 
     private fun saveUserToDatabase(username: String, profileImageURL: String) {
         val uid = FirebaseAuth.getInstance().uid ?: ""
-        val ref = firebaseInstance.getReference("/users/$uid")
+        val ref = LatestMessagesModel.firebaseInstance.getReference("/users/$uid")
 
         val user = User(uid, username, profileImageURL)
         ref.setValue(user)

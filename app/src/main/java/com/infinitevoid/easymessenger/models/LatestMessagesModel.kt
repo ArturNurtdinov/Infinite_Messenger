@@ -9,18 +9,24 @@ import com.infinitevoid.easymessenger.data.User
 class LatestMessagesModel(private val onDataReady: LatestMessagesContract.OnDataReady) :
     LatestMessagesContract.Model {
 
+    companion object {
+        val firebaseInstance: FirebaseDatabase by lazy {
+            FirebaseDatabase.getInstance().apply { setPersistenceEnabled(true) }
+        }
+    }
+
     override fun setMessageRead(message: ChatMessage) {
         val refLatestFromTo =
-            FirebaseDatabase.getInstance()
+            firebaseInstance
                 .getReference("/latest-messages/${message.fromId}/${message.toId}/read")
         val refLatestToFrom =
-            FirebaseDatabase.getInstance()
+            firebaseInstance
                 .getReference("/latest-messages/${message.toId}/${message.fromId}/read")
         val refUserMesToFrom =
-            FirebaseDatabase.getInstance()
+            firebaseInstance
                 .getReference("/user-messages/${message.toId}/${message.fromId}/${message.id}/read")
         val refUserMesFromTo =
-            FirebaseDatabase.getInstance()
+            firebaseInstance
                 .getReference("/user-messages/${message.fromId}/${message.toId}/${message.id}/read")
         message.read = "true"
 
@@ -40,7 +46,7 @@ class LatestMessagesModel(private val onDataReady: LatestMessagesContract.OnData
 
     override fun fetchCurrentUser() {
         val uid = FirebaseAuth.getInstance().uid
-        val ref = FirebaseDatabase.getInstance().getReference("/users/$uid")
+        val ref = firebaseInstance.getReference("/users/$uid")
         ref.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
 
@@ -54,7 +60,7 @@ class LatestMessagesModel(private val onDataReady: LatestMessagesContract.OnData
 
     override fun setListenerForLatest() {
         val fromId = FirebaseAuth.getInstance().uid
-        val ref = FirebaseDatabase.getInstance().getReference("/latest-messages/$fromId")
+        val ref = firebaseInstance.getReference("/latest-messages/$fromId")
         ref.addChildEventListener(object : ChildEventListener {
             override fun onCancelled(p0: DatabaseError) {
             }
