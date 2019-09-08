@@ -100,25 +100,53 @@ class ProfileSettingsActivity : AppCompatActivity(), ProfileSettingsContract.Vie
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.perform_changes -> {
-                if (isNameChanged) {
+                if (isNameChanged && isAvatarChanged) {
                     val newUsername = profile_username.text.toString()
                     if (newUsername.isEmpty() || newUsername.length > Constants.MAX_USERNAME_LENGTH) {
                         profile_username.requestFocus()
                         profile_username.setSelection(profile_username.text.length)
-                        Toast.makeText(this, getString(R.string.wrong_username), Toast.LENGTH_SHORT)
+                        Toast.makeText(
+                            this,
+                            getString(R.string.wrong_username),
+                            Toast.LENGTH_SHORT
+                        )
                             .show()
                     } else {
                         presenter.setNewUsername(profile_username.text.toString())
+                        presenter.setNewAvatar(selectedPhotoUri)
+                        Toast.makeText(
+                            this,
+                            getString(R.string.changes_performed),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        finish()
                     }
-                }
-                if (isAvatarChanged) {
+                } else if (isNameChanged && !isAvatarChanged) {
+                    val newUsername = profile_username.text.toString()
+                    if (newUsername.isEmpty() || newUsername.length > Constants.MAX_USERNAME_LENGTH) {
+                        profile_username.requestFocus()
+                        profile_username.setSelection(profile_username.text.length)
+                        Toast.makeText(
+                            this,
+                            getString(R.string.wrong_username),
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+                    } else {
+                        presenter.setNewUsername(profile_username.text.toString())
+                        finish()
+                    }
+                } else if (isAvatarChanged && !isNameChanged) {
                     presenter.setNewAvatar(selectedPhotoUri)
+                    Toast.makeText(
+                        this,
+                        getString(R.string.changes_performed),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    finish()
+                } else if (!isAvatarChanged && !isNameChanged) {
+                    finish()
                 }
-                if (isNameChanged || isAvatarChanged) {
-                    Toast.makeText(this, getString(R.string.changes_performed), Toast.LENGTH_SHORT)
-                        .show()
-                }
-                finish()
             }
         }
         return super.onOptionsItemSelected(item)
