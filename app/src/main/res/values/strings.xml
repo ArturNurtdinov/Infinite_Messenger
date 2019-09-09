@@ -36,4 +36,5 @@
     <string name="type_smth_or_choose_an_image_to_send">Type something or choose an image to send</string>
     <string name="registration_success">Registration success</string>
     <string name="registration_failed">Registration failed:</string>
+    <string name="more">More</string>
 </resources>
