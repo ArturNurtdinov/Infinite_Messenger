@@ -1,23 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
     <item
         android:id="@+id/menu_new_message"
         android:icon="@drawable/ic_person_add_white_24dp"
         android:title="@string/new_message"
         app:showAsAction="ifRoom" />
-
     <item
-        android:id="@+id/profile_settings"
-        android:icon="@drawable/ic_settings_white_24dp"
-        android:title="@string/profile_settings"
-        app:showAsAction="ifRoom" />
+        android:icon="@drawable/ic_more_vert_white_24dp"
+        android:title="@string/more"
+        app:showAsAction="always">
 
-    <item
-        android:id="@+id/menu_sign_out"
-        android:icon="@drawable/ic_exit_to_app_white_24dp"
-        android:title="@string/sign_out"
-        app:showAsAction="ifRoom" />
+        <menu>
 
+            <item
+                android:id="@+id/profile_settings"
+                android:icon="@drawable/ic_settings_black_24dp"
+                android:title="@string/profile_settings"
+                app:showAsAction="never" />
+
+            <item
+                android:id="@+id/menu_sign_out"
+                android:icon="@drawable/ic_exit_to_app_black_24dp"
+                android:title="@string/sign_out"
+                app:showAsAction="never" />
+        </menu>
+
+    </item>
 </menu>
