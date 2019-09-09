@@ -77,7 +77,7 @@ class ChatLogActivity : AppCompatActivity(), ChatLogContract.View {
     }
 
     override fun showMessageFrom(message: ChatMessage) {
-        adapter.add(ChatFromItem(message, chatPartner ?: return))
+        adapter.add(ChatFromItem(message, chatPartner ?: return) { openFullscreen(it) })
         if (message.message == latestMessage?.message) {
             chat_log_recycler.scrollToPosition(adapter.itemCount - 1)
         }
@@ -85,7 +85,7 @@ class ChatLogActivity : AppCompatActivity(), ChatLogContract.View {
 
     override fun showMessageTo(message: ChatMessage) {
         val currentUser = LatestMessagesActivity.currentUser ?: return
-        adapter.add(ChatToItem(message, currentUser))
+        adapter.add(ChatToItem(message, currentUser) { openFullscreen(it) })
         loading_mark.visibility = View.GONE
         if (message.message == latestMessage?.message) {
             chat_log_recycler.scrollToPosition(adapter.itemCount - 1)
@@ -98,5 +98,11 @@ class ChatLogActivity : AppCompatActivity(), ChatLogContract.View {
             selectedImageUri = data.data
             choose_mark.visibility = View.VISIBLE
         }
+    }
+
+    private fun openFullscreen(url: String) {
+        val intent = Intent(this, FullScreenImageActivity::class.java)
+        intent.putExtra("IMAGE_KEY", url)
+        startActivity(intent)
     }
 }
