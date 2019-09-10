@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.chat_to_row.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ChatToItem(private val chatMessage: ChatMessage, private val user: User) :
+class ChatToItem(private val chatMessage: ChatMessage, private val user: User, private val click: (String) -> Unit) :
     Item<ViewHolder>() {
     override fun bind(viewHolder: ViewHolder, position: Int) {
         val date = Date(chatMessage.timestamp * 1000)
@@ -34,6 +34,7 @@ class ChatToItem(private val chatMessage: ChatMessage, private val user: User) :
         if (chatMessage.imageURL != "") {
             Picasso.get().load(chatMessage.imageURL)
                 .into(viewHolder.itemView.message_image)
+            viewHolder.itemView.message_image.setOnClickListener { click(chatMessage.imageURL) }
             viewHolder.itemView.message_image.visibility = View.VISIBLE
         } else {
             viewHolder.itemView.message_image.visibility = View.GONE

@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.chat_from_row.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ChatFromItem(private val chatMessage: ChatMessage, private val user: User) :
+class ChatFromItem(private val chatMessage: ChatMessage, private val user: User, private val click: (String) -> Unit) :
     Item<ViewHolder>() {
     override fun getLayout(): Int {
         return R.layout.chat_from_row
@@ -36,12 +36,13 @@ class ChatFromItem(private val chatMessage: ChatMessage, private val user: User)
         }
 
         if (chatMessage.imageURL != "") {
-            viewHolder.itemView.message_image.visibility = View.VISIBLE
             Picasso.get().load(chatMessage.imageURL)
                 .into(viewHolder.itemView.message_image)
+            viewHolder.itemView.message_image.setOnClickListener { click(chatMessage.imageURL) }
             viewHolder.itemView.message_image.visibility = View.VISIBLE
         } else {
             viewHolder.itemView.message_image.visibility = View.GONE
         }
+
     }
 }
