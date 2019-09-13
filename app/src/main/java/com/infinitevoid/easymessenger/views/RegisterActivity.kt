@@ -23,6 +23,8 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        register.isClickable = true
+        already_registered.isClickable = true
         register.setOnClickListener {
             val email = email.text.toString()
             val password = password.text.toString()
@@ -33,6 +35,8 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
                     .show()
             } else {
                 presenter.performRegister(email, password, username, selectedPhotoUri)
+                register.isClickable = false
+                already_registered.isClickable = false
             }
         }
 
@@ -73,7 +77,9 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
     }
 
     override fun onFailure(message: String) {
-        var failText = getString(R.string.registration_failed)
+        val failText = getString(R.string.registration_failed)
         Toast.makeText(this, "$failText $message", Toast.LENGTH_LONG).show()
+        register.isClickable = true
+        already_registered.isClickable = true
     }
 }
