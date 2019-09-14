@@ -21,6 +21,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View, LoginContract.OnL
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        login.isClickable = true
         login.setOnClickListener {
             val email = email.text.toString()
             val password = password.text.toString()
@@ -29,6 +30,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View, LoginContract.OnL
                     .show()
             }
             Log.d(TAG, "Attempt to login with $email and $password")
+            login.isClickable = false
             presenter.performLogin(email, password)
         }
 
@@ -45,6 +47,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View, LoginContract.OnL
     }
 
     override fun onFailure(message: String) {
+        login.isClickable = true
         Toast.makeText(this@LoginActivity, "Login failed: $message", Toast.LENGTH_LONG).show()
     }
 }
