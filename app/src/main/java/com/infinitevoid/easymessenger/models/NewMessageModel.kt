@@ -14,6 +14,7 @@ class NewMessageModel(private val changeListener: NewMessageContract.ChangeListe
     NewMessageContract.Model {
     override fun fetchUsers() {
         val ref = FirebaseDatabase.getInstance().getReference("/users")
+        ref.keepSynced(false)
         ref.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
                 Log.d(NewMessageActivity.TAG, "Fetching users cancelled")
