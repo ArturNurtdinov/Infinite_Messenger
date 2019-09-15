@@ -22,6 +22,7 @@ Current version 1.0.3 - 13.09.2019:
 6. Pick image as a theme in chat
 7. Voice messages
 8. Indicator if person is online
+9. Should write in latest messages when photo sent. Do not show empty message
 
 # Troubleshoot
 1. LatestMessageItem has access to database in it
