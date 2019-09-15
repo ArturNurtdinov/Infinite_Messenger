@@ -5,10 +5,12 @@ import com.infinitevoid.easymessenger.data.User
 interface NewMessageContract {
     interface Model {
         fun fetchUsers()
+        fun onDestroy()
     }
 
     interface Presenter {
         fun fetchUsers()
+        fun onDestroy()
     }
 
     interface View {

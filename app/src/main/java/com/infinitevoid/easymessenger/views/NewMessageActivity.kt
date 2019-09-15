@@ -83,4 +83,9 @@ class NewMessageActivity : AppCompatActivity(), NewMessageContract.View {
         searchView.setSearchableInfo(manager.getSearchableInfo(component))
         return super.onCreateOptionsMenu(menu)
     }
+
+    override fun onDestroy() {
+        presenter.onDestroy()
+        super.onDestroy()
+    }
 }

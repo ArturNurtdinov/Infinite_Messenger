@@ -11,6 +11,10 @@ class NewMessagePresenter(private val view: NewMessageContract.View) : NewMessag
         model.fetchUsers()
     }
 
+    override fun onDestroy() {
+        model.onDestroy()
+    }
+
     override fun getChange(user: User) {
         view.addUser(user)
     }
