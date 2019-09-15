@@ -8,8 +8,9 @@ import com.infinitevoid.easymessenger.contracts.ChatLogContract
 import com.infinitevoid.easymessenger.data.ChatMessage
 import java.util.*
 
-class ChatLogModel(private val listener: ChatLogContract.ChangeListener) : ChatLogContract.Model, ChildEventListener {
-    private var ref : DatabaseReference? = null
+class ChatLogModel(private val listener: ChatLogContract.ChangeListener) : ChatLogContract.Model,
+    ChildEventListener {
+    private var ref: DatabaseReference? = null
     override fun setListenerForMessages(toId: String) {
         val fromId = FirebaseAuth.getInstance().uid ?: return
         ref = FirebaseDatabase.getInstance().getReference("/user-messages/$fromId/$toId")
@@ -78,7 +79,9 @@ class ChatLogModel(private val listener: ChatLogContract.ChangeListener) : ChatL
     override fun onChildAdded(p0: DataSnapshot, p1: String?) {
         val chatMessage = p0.getValue(ChatMessage::class.java) ?: return
         val key = chatMessage.fromId == FirebaseAuth.getInstance().uid
-        listener.showMessage(chatMessage, key)
+        if (chatMessage.message.isNotEmpty() || chatMessage.imageURL.isNotEmpty()) {
+            listener.showMessage(chatMessage, key)
+        }
     }
 
     override fun onChildRemoved(p0: DataSnapshot) {
