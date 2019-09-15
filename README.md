@@ -3,8 +3,9 @@ Simple messenger on Kotlin with Firebase
 
 Project started 15.08.2019
 
-Current version 1.0.3 - 13.09.2019:
-1. shrinkResources and minifyEnabled were disabled for release version.
+Current version 1.0.4 - 15.09.2019:
+1. Fixed 6th bug
+2. Changed all event listeners
 
 # Bug treker
 ### 1. **(Fixed)** When dialoue started with person, this person sees it as unnamed dialogue without picture. When unnamed item clicked - app crashes.
