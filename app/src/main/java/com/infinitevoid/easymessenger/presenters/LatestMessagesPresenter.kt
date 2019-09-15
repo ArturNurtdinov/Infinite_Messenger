@@ -26,6 +26,10 @@ class LatestMessagesPresenter(private val view: LatestMessagesContract.View) :
         model.setListenerForLatest()
     }
 
+    override fun onDestroy() {
+        model.onDestroy()
+    }
+
     override fun onLatestChanged(chatMessage: ChatMessage, key: String) {
         view.onLatestChanged(chatMessage, key)
     }

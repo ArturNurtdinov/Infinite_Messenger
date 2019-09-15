@@ -10,6 +10,7 @@ interface LatestMessagesContract {
         fun verifyIsLogged(): Boolean
         fun signOut()
         fun setMessageRead(message: ChatMessage)
+        fun onDestroy()
     }
 
     interface Presenter {
@@ -18,6 +19,7 @@ interface LatestMessagesContract {
         fun verifyIsLogged()
         fun signOut()
         fun setMessageRead(message: ChatMessage)
+        fun onDestroy()
     }
 
     interface View {

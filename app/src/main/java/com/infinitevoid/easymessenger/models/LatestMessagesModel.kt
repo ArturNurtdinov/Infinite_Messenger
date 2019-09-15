@@ -7,13 +7,15 @@ import com.infinitevoid.easymessenger.data.ChatMessage
 import com.infinitevoid.easymessenger.data.User
 
 class LatestMessagesModel(private val onDataReady: LatestMessagesContract.OnDataReady) :
-    LatestMessagesContract.Model {
+    LatestMessagesContract.Model, ChildEventListener {
 
     companion object {
         val firebaseInstance: FirebaseDatabase by lazy {
             FirebaseDatabase.getInstance().apply { setPersistenceEnabled(true) }
         }
     }
+
+    private var ref : DatabaseReference? = null
 
     override fun setMessageRead(message: ChatMessage) {
         val refLatestFromTo =
@@ -60,27 +62,30 @@ class LatestMessagesModel(private val onDataReady: LatestMessagesContract.OnData
 
     override fun setListenerForLatest() {
         val fromId = FirebaseAuth.getInstance().uid
-        val ref = firebaseInstance.getReference("/latest-messages/$fromId")
-        ref.addChildEventListener(object : ChildEventListener {
-            override fun onCancelled(p0: DatabaseError) {
-            }
+        ref = firebaseInstance.getReference("/latest-messages/$fromId")
+        ref?.addChildEventListener(this)
+    }
 
-            override fun onChildMoved(p0: DataSnapshot, p1: String?) {
-            }
+    override fun onDestroy() {
+        ref?.removeEventListener(this)
+    }
 
-            override fun onChildChanged(p0: DataSnapshot, p1: String?) {
-                onDataReady.onLatestChanged(
-                    p0.getValue(ChatMessage::class.java) ?: return,
-                    p0.key!!
-                )
-            }
+    override fun onCancelled(p0: DatabaseError) {
+    }
 
-            override fun onChildAdded(p0: DataSnapshot, p1: String?) {
-                onDataReady.onLatestAdded(p0.getValue(ChatMessage::class.java) ?: return, p0.key!!)
-            }
+    override fun onChildMoved(p0: DataSnapshot, p1: String?) {
+    }
 
-            override fun onChildRemoved(p0: DataSnapshot) {
-            }
-        })
+    override fun onChildChanged(p0: DataSnapshot, p1: String?) {
+        onDataReady.onLatestChanged(
+            p0.getValue(ChatMessage::class.java) ?: return,
+            p0.key!!
+        )
+    }
+
+    override fun onChildAdded(p0: DataSnapshot, p1: String?) {
+    }
+
+    override fun onChildRemoved(p0: DataSnapshot) {
     }
 }
