@@ -100,6 +100,11 @@ class ChatLogActivity : AppCompatActivity(), ChatLogContract.View {
         }
     }
 
+    override fun onDestroy() {
+        presenter.onDestroy()
+        super.onDestroy()
+    }
+
     private fun openFullscreen(url: String) {
         val intent = Intent(this, FullScreenImageActivity::class.java)
         intent.putExtra("IMAGE_KEY", url)

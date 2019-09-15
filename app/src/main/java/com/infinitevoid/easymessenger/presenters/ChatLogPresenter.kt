@@ -12,6 +12,10 @@ class ChatLogPresenter(private val view: ChatLogContract.View) : ChatLogContract
         model.setListenerForMessages(toId)
     }
 
+    override fun onDestroy() {
+        model.onDestroy()
+    }
+
     override fun sendMessage(text: String, toId: String, uri: Uri?) {
         model.sendMessage(text, toId, uri)
     }

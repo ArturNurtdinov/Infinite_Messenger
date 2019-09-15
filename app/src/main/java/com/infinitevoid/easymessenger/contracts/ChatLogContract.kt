@@ -7,11 +7,13 @@ interface ChatLogContract {
     interface Model {
         fun setListenerForMessages(toId: String)
         fun sendMessage(text: String, toId: String, uri: Uri?)
+        fun onDestroy()
     }
 
     interface Presenter {
         fun setListenerForMessages(toId: String)
         fun sendMessage(text: String, toId: String, uri: Uri?)
+        fun onDestroy()
     }
 
     interface View {

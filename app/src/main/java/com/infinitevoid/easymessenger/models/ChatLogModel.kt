@@ -2,40 +2,19 @@ package com.infinitevoid.easymessenger.models
 
 import android.net.Uri
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.ChildEventListener
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.infinitevoid.easymessenger.contracts.ChatLogContract
 import com.infinitevoid.easymessenger.data.ChatMessage
 import java.util.*
 
-class ChatLogModel(private val listener: ChatLogContract.ChangeListener) : ChatLogContract.Model {
-
+class ChatLogModel(private val listener: ChatLogContract.ChangeListener) : ChatLogContract.Model, ChildEventListener {
+    private var ref : DatabaseReference? = null
     override fun setListenerForMessages(toId: String) {
         val fromId = FirebaseAuth.getInstance().uid ?: return
-        val ref = FirebaseDatabase.getInstance().getReference("/user-messages/$fromId/$toId")
-        ref.keepSynced(true)
-        ref.addChildEventListener(object : ChildEventListener {
-            override fun onChildAdded(p0: DataSnapshot, p1: String?) {
-                val chatMessage = p0.getValue(ChatMessage::class.java) ?: return
-                val key = chatMessage.fromId == FirebaseAuth.getInstance().uid
-                listener.showMessage(chatMessage, key)
-            }
-
-            override fun onCancelled(p0: DatabaseError) {
-            }
-
-            override fun onChildMoved(p0: DataSnapshot, p1: String?) {
-            }
-
-            override fun onChildChanged(p0: DataSnapshot, p1: String?) {
-            }
-
-            override fun onChildRemoved(p0: DataSnapshot) {
-            }
-        })
+        ref = FirebaseDatabase.getInstance().getReference("/user-messages/$fromId/$toId")
+        ref?.keepSynced(true)
+        ref?.addChildEventListener(this)
     }
 
     override fun sendMessage(text: String, toId: String, uri: Uri?) {
@@ -81,5 +60,27 @@ class ChatLogModel(private val listener: ChatLogContract.ChangeListener) : ChatL
         toRef.setValue(chatMessage)
         latestMessageRef.setValue(chatMessage)
         fromRef.setValue(chatMessage)
+    }
+
+    override fun onDestroy() {
+        ref?.removeEventListener(this)
+    }
+
+    override fun onCancelled(p0: DatabaseError) {
+    }
+
+    override fun onChildMoved(p0: DataSnapshot, p1: String?) {
+    }
+
+    override fun onChildChanged(p0: DataSnapshot, p1: String?) {
+    }
+
+    override fun onChildAdded(p0: DataSnapshot, p1: String?) {
+        val chatMessage = p0.getValue(ChatMessage::class.java) ?: return
+        val key = chatMessage.fromId == FirebaseAuth.getInstance().uid
+        listener.showMessage(chatMessage, key)
+    }
+
+    override fun onChildRemoved(p0: DataSnapshot) {
     }
 }
