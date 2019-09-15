@@ -12,6 +12,7 @@ Current version 1.0.3 - 13.09.2019:
 ##### 3. **(Fixed)** Need to collapse dialogues when message too long
 ##### 4. **(Fixed)** Replace signOut() icon
 ##### 5. **(Fixed)** Some values don't have translations
+### 6. Sometimes empty messages appear in chat log
 
 # Wish-list
 1. **(Added)** Add dark mode
