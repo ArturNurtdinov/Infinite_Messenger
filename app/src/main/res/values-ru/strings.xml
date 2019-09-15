@@ -9,7 +9,7 @@
     <string name="need_an_account">Нужен аккаунт?</string>
     <string name="login_UC">ВОЙТИ</string>
     <string name="select_photo">Выбрать фото</string>
-    <string name="sign_out">Выйти</string>
+    <string name="sign_out">Выйти из аккаунта</string>
     <string name="new_message">Новое сообщение</string>
     <string name="username">Имя пользователя</string>
     <string name="send_UC">ОТПРАВИТЬ</string>
@@ -38,4 +38,5 @@
     <string name="registration_success">Регистрация прошла успешно</string>
     <string name="registration_failed">Ошибка регистрации:</string>
     <string name="more">Ещё</string>
+    <string name="refresh">Обновить</string>
 </resources>
