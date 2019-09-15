@@ -77,13 +77,13 @@ class LatestMessagesModel(private val onDataReady: LatestMessagesContract.OnData
     }
 
     override fun onChildChanged(p0: DataSnapshot, p1: String?) {
+    }
+
+    override fun onChildAdded(p0: DataSnapshot, p1: String?) {
         onDataReady.onLatestChanged(
             p0.getValue(ChatMessage::class.java) ?: return,
             p0.key!!
         )
-    }
-
-    override fun onChildAdded(p0: DataSnapshot, p1: String?) {
     }
 
     override fun onChildRemoved(p0: DataSnapshot) {
