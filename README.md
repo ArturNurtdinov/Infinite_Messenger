@@ -17,10 +17,11 @@ Current version 1.0.3 - 13.09.2019:
 1. **(Added)** Add dark mode
 2. Deleting messages in chat.
 3. **(Added)** Copy message text
-4. Pick themes color using palitra.
-5. Pick image as a theme in chat
-6. Voice messages
-7. Indicator if person is online
+4. Dialogues
+5. Pick themes color using palitra.
+6. Pick image as a theme in chat
+7. Voice messages
+8. Indicator if person is online
 
 # Troubleshoot
 1. LatestMessageItem has access to database in it
