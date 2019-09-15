@@ -97,6 +97,14 @@ class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View 
             R.id.menu_sign_out -> {
                 presenter.signOut()
             }
+
+            R.id.refresh -> {
+                adapter.clear()
+                latestMessagesMap.toSortedMap(compareBy { -latestMessagesMap[it]?.timestamp!! })
+                    .values.forEach {
+                    adapter.add(LatestMessagesItem(it))
+                }
+            }
         }
         return super.onOptionsItemSelected(item)
     }
