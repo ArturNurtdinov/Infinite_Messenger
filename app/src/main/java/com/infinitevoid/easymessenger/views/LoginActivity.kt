@@ -26,12 +26,16 @@ class LoginActivity : AppCompatActivity(), LoginContract.View, LoginContract.OnL
             val email = email.text.toString()
             val password = password.text.toString()
             if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this@LoginActivity, "Please fill all fields", Toast.LENGTH_LONG)
+                Toast.makeText(this@LoginActivity, getString(R.string.fill_all_fields), Toast.LENGTH_LONG)
                     .show()
             }
             Log.d(TAG, "Attempt to login with $email and $password")
-            login.isClickable = false
-            presenter.performLogin(email, password)
+            if (email.isNotEmpty() && password.isNotEmpty()) {
+                login.isClickable = false
+                presenter.performLogin(email, password)
+            } else {
+                Toast.makeText(this, getString(R.string.fill_all_fields), Toast.LENGTH_LONG).show()
+            }
         }
 
         need_to_register.setOnClickListener {
@@ -40,7 +44,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View, LoginContract.OnL
     }
 
     override fun onSuccess() {
-        Toast.makeText(this@LoginActivity, "Logged in successfully", Toast.LENGTH_LONG).show()
+        Toast.makeText(this@LoginActivity, getString(R.string.logged_successfully), Toast.LENGTH_LONG).show()
         val intent = Intent(this, LatestMessagesActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
