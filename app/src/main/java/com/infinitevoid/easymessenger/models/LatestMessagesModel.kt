@@ -122,20 +122,14 @@ class LatestMessagesModel(private val onDataReady: LatestMessagesContract.OnData
                 val gson = Gson()
                 val json = prf.getString("MAP", "")
                 messagesMap =
-                    gson.fromJson(
-                        json,
-                        object : TypeToken<HashMap<String, ChatMessage>>() {}.type
-                    )
-                Log.d("Notification!!!", "I load ${messagesMap.size}")
-                messagesMap.values.forEach {
-                    Log.d("Notification!!!", it.message)
-                }
+                    gson.fromJson(json, object : TypeToken<HashMap<String, ChatMessage>>() {}.type)
             }
         } catch (e: Exception) {
             e.printStackTrace()
         }
 
     }
+
     override fun onCancelled(p0: DatabaseError) {
     }
 
