@@ -48,8 +48,6 @@ class ChatLogActivity : AppCompatActivity(), ChatLogContract.View {
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
-                val message = ChatMessage("", chat_log.text.toString(), "", "", -1, "", "")
-                latestMessage = message
                 presenter.sendMessage(
                     chat_log.text.toString(),
                     (chatPartner ?: return@setOnClickListener).uid,
@@ -94,6 +92,7 @@ class ChatLogActivity : AppCompatActivity(), ChatLogContract.View {
         if (needToScroll ?: return) {
             chat_log_recycler.scrollToPosition(adapter.itemCount - 1)
         }
+        latestMessage = message
     }
 
     override fun showMessageTo(message: ChatMessage) {
@@ -101,7 +100,7 @@ class ChatLogActivity : AppCompatActivity(), ChatLogContract.View {
         adapter.add(ChatToItem(message, currentUser) { openFullscreen(it) })
         loading_mark.visibility = View.GONE
         chat_log_recycler.scrollToPosition(adapter.itemCount - 1)
-
+        latestMessage = message
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
