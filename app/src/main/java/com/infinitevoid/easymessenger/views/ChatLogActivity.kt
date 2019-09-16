@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.infinitevoid.easymessenger.R
 import com.infinitevoid.easymessenger.contracts.ChatLogContract
 import com.infinitevoid.easymessenger.adapters.ChatFromItem
@@ -25,6 +27,7 @@ class ChatLogActivity : AppCompatActivity(), ChatLogContract.View {
     private val adapter = GroupAdapter<ViewHolder>()
     private val presenter = ChatLogPresenter(this)
     private var selectedImageUri: Uri? = null
+    private var needToScroll: Boolean? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat_log)
@@ -74,11 +77,21 @@ class ChatLogActivity : AppCompatActivity(), ChatLogContract.View {
                 }, 100)
             }
         }
+
+        val layoutManager = chat_log_recycler.layoutManager as LinearLayoutManager
+        needToScroll = true
+        chat_log_recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                needToScroll =
+                    (layoutManager.childCount + layoutManager.findFirstVisibleItemPosition()) >= layoutManager.itemCount
+
+            }
+        })
     }
 
     override fun showMessageFrom(message: ChatMessage) {
         adapter.add(ChatFromItem(message, chatPartner ?: return) { openFullscreen(it) })
-        if (message.message == latestMessage?.message) {
+        if (needToScroll ?: return) {
             chat_log_recycler.scrollToPosition(adapter.itemCount - 1)
         }
     }
@@ -87,9 +100,8 @@ class ChatLogActivity : AppCompatActivity(), ChatLogContract.View {
         val currentUser = LatestMessagesActivity.currentUser ?: return
         adapter.add(ChatToItem(message, currentUser) { openFullscreen(it) })
         loading_mark.visibility = View.GONE
-        if (message.message == latestMessage?.message) {
-            chat_log_recycler.scrollToPosition(adapter.itemCount - 1)
-        }
+        chat_log_recycler.scrollToPosition(adapter.itemCount - 1)
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
