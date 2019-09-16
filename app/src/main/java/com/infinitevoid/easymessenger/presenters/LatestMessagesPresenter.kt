@@ -5,7 +5,6 @@ import com.infinitevoid.easymessenger.contracts.LatestMessagesContract
 import com.infinitevoid.easymessenger.data.ChatMessage
 import com.infinitevoid.easymessenger.data.User
 import com.infinitevoid.easymessenger.models.LatestMessagesModel
-import kotlinx.coroutines.*
 
 class LatestMessagesPresenter(private val view: LatestMessagesContract.View) :
     LatestMessagesContract.Presenter, LatestMessagesContract.OnDataReady {
@@ -37,9 +36,7 @@ class LatestMessagesPresenter(private val view: LatestMessagesContract.View) :
     }
 
     override fun loadMap(context: Context) {
-        GlobalScope.async {
-            model.loadMap(context)
-        }
+        model.loadMap(context)
     }
 
     override fun onLatestChanged(chatMessage: ChatMessage, key: String) {

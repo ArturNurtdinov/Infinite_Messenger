@@ -13,7 +13,7 @@ interface LatestMessagesContract {
         fun setMessageRead(message: ChatMessage)
         fun onDestroy()
         fun saveMap(context: Context)
-        suspend fun loadMap(context: Context)
+        fun loadMap(context: Context)
     }
 
     interface Presenter {

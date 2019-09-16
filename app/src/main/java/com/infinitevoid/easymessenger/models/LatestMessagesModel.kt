@@ -115,7 +115,7 @@ class LatestMessagesModel(private val onDataReady: LatestMessagesContract.OnData
         }
     }
 
-    override suspend fun loadMap(context: Context) {
+    override fun loadMap(context: Context) {
         val prf = context.getSharedPreferences("USERDATA", Context.MODE_PRIVATE)
         try {
             if (prf != null) {

@@ -15,7 +15,7 @@ android {
         applicationId "com.topaz.easymessenger"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 6
+        versionCode 7
         versionName "1.0.5"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -38,6 +38,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:19.0.1'
     implementation 'com.google.firebase:firebase-database:19.1.0'
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
+    implementation 'com.google.code.gson:gson:2.8.5'
     implementation "com.xwray:groupie:2.4.0"
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.android.support:support-core-utils:28.2.1'
