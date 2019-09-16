@@ -38,4 +38,6 @@
     <string name="registration_failed">Registration failed:</string>
     <string name="more">More</string>
     <string name="refresh">Refresh</string>
+    <string name="fill_all_fields">Please fill all fields</string>
+    <string name="logged_successfully">Logged in successfully</string>
 </resources>

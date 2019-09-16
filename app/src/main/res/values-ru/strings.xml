@@ -39,4 +39,6 @@
     <string name="registration_failed">Ошибка регистрации:</string>
     <string name="more">Ещё</string>
     <string name="refresh">Обновить</string>
+    <string name="fill_all_fields">Сначала заполните все поля</string>
+    <string name="logged_successfully">Вы вошли успешно</string>
 </resources>
