@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="12dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
@@ -18,22 +19,18 @@
 
         <ImageView
             android:id="@+id/message_image"
-            android:layout_width="250dp"
+            android:layout_width="240dp"
             android:layout_height="300dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
             android:adjustViewBounds="true"
             android:contentDescription="@string/message_image"
-            android:maxWidth="250dp"
+            android:maxWidth="240dp"
             android:maxHeight="300dp"
             android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@id/date_text"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/message"
-            tools:layout_height="400dp"
-            tools:layout_width="250dp"
+            tools:layout_height="300dp"
+            tools:layout_width="240dp"
             tools:src="@tools:sample/backgrounds/scenic"
             tools:visibility="visible" />
 
@@ -41,10 +38,10 @@
             android:id="@+id/date_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:paddingStart="8dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="8dp"
             android:textColor="@android:color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/message_image"
             tools:text="@tools:sample/date/hhmm" />
@@ -53,30 +50,25 @@
             android:id="@+id/message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="8dp"
-            android:maxWidth="280dp"
+            android:maxWidth="240dp"
+            android:paddingStart="8dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="8dp"
             android:textColor="@android:color/white"
             android:textIsSelectable="true"
             app:layout_constraintBottom_toTopOf="@id/message_image"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@tools:sample/lorem" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profile_picture"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_margin="8dp"
         app:civ_border_color="@android:color/black"
         app:civ_border_width="2dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/avatars" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
