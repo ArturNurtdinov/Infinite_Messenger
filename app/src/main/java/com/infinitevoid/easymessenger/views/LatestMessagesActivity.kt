@@ -13,6 +13,8 @@ import android.view.MenuItem
 import android.view.View
 import androidx.core.app.NotificationCompat
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
 import com.infinitevoid.easymessenger.R
 import com.infinitevoid.easymessenger.contracts.LatestMessagesContract
 import com.infinitevoid.easymessenger.data.ChatMessage
@@ -38,6 +40,13 @@ class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_latest_messages)
+
+        MobileAds.initialize(this)
+        val request = AdRequest.Builder()
+            .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+            .build()
+        adView.loadAd(request)
+
         adapter.setOnItemClickListener { item, view ->
             val intent = Intent(this, ChatLogActivity::class.java)
             intent.putExtra(Constants.USER_KEY, (item as LatestMessagesItem).userPartner)
