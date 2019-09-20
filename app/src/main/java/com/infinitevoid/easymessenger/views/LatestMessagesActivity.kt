@@ -153,12 +153,11 @@ class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View 
         super.onDestroy()
     }
 
-    private var id = 0
     override fun setNotification(message: ChatMessage, user: User) {
         val intent = Intent(this, LatestMessagesActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         val pendingIntent =
-            PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_NO_CREATE)
+            PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         if ((message.read == "false") && (message.toId == currentUser?.uid)) {
             val notification = NotificationCompat.Builder(this, Constants.CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_notification)
@@ -169,7 +168,7 @@ class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View 
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setAutoCancel(true)
                 .build()
-            notificationManager?.notify(++id, notification)
+            notificationManager?.notify(1, notification)
         }
     }
 }
