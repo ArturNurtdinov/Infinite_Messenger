@@ -1,5 +1,6 @@
 package com.infinitevoid.easymessenger.adapters
 
+import android.annotation.SuppressLint
 import android.view.View
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -11,6 +12,7 @@ import com.infinitevoid.easymessenger.R
 import com.infinitevoid.easymessenger.data.ChatMessage
 import com.infinitevoid.easymessenger.data.User
 import com.infinitevoid.easymessenger.utils.Constants
+import com.infinitevoid.easymessenger.views.LatestMessagesActivity
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.latest_messages_row.view.*
@@ -25,8 +27,8 @@ class LatestMessagesItem(val chatMessage: ChatMessage) :
         return R.layout.latest_messages_row
     }
 
+    @SuppressLint("SetTextI18n")
     override fun bind(viewHolder: ViewHolder, position: Int) {
-        viewHolder.itemView.message.text = chatMessage.message
         val date = Date(chatMessage.timestamp * 1000)
         val dateFormat =
             if (date.day == Date(System.currentTimeMillis()).day) {
@@ -45,6 +47,17 @@ class LatestMessagesItem(val chatMessage: ChatMessage) :
 
         if ((chatMessage.fromId != currentUserId) && (chatMessage.read == "false")) {
             viewHolder.itemView.read_mark.visibility = View.VISIBLE
+        }
+
+        if (chatMessage.fromId == currentUserId) {
+            val currentUser = LatestMessagesActivity.currentUser
+            if (currentUser != null) {
+                viewHolder.itemView.message.text = currentUser.username.plus(": ").plus(chatMessage.message)
+            } else {
+                viewHolder.itemView.message.text = "you: ".plus(chatMessage.message)
+            }
+        } else {
+            viewHolder.itemView.message.text = chatMessage.message
         }
 
         val ref = FirebaseDatabase.getInstance().getReference("/users/$chatPartnerId")
