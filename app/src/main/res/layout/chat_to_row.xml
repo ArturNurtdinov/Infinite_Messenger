@@ -48,7 +48,7 @@
             app:layout_constraintTop_toBottomOf="@id/message_image"
             tools:text="@tools:sample/date/hhmm" />
 
-        <TextView
+        <hani.momanii.supernova_emoji_library.Helper.EmojiconTextView
             android:id="@+id/message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -59,6 +59,7 @@
             android:paddingEnd="8dp"
             android:textColor="@android:color/white"
             android:textIsSelectable="true"
+            android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@id/message_image"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
