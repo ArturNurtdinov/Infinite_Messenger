@@ -8,10 +8,13 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.FontRequest
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.core.app.NotificationCompat
+import androidx.emoji.text.EmojiCompat
+import androidx.emoji.text.FontRequestEmojiCompatConfig
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
@@ -83,6 +86,7 @@ class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View 
         if (latestMessagesMap.isEmpty()) {
             progress_bar.visibility = View.GONE
         }
+
     }
 
     override fun onLatestChanged(chatMessage: ChatMessage, key: String) {
