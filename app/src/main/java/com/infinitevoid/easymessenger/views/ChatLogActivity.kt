@@ -19,6 +19,7 @@ import com.infinitevoid.easymessenger.presenters.ChatLogPresenter
 import com.infinitevoid.easymessenger.utils.Constants
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
+import hani.momanii.supernova_emoji_library.Actions.EmojIconActions
 import kotlinx.android.synthetic.main.activity_chat_log.*
 
 class ChatLogActivity : AppCompatActivity(), ChatLogContract.View {
@@ -85,6 +86,13 @@ class ChatLogActivity : AppCompatActivity(), ChatLogContract.View {
 
             }
         })
+
+        val emojiIcon = EmojIconActions(this, root, chat_log, emoji_btn)
+        emojiIcon.setIconsIds(
+            R.drawable.ic_keyboard_holo_blue_light_28dp,
+            R.drawable.ic_sentiment_satisfied_holo_blue_light_28dp
+        )
+        emojiIcon.ShowEmojIcon()
     }
 
     override fun showMessageFrom(message: ChatMessage) {
