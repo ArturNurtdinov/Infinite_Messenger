@@ -1,4 +1,4 @@
-package com.topaz.easymessenger
+package com.infinitevoid.easymessenger
 
 import org.junit.Test
 

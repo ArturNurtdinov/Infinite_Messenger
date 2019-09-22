@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "662555090588-4humhqvad3tm0foc9tu9ooboa3a58pkd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.topaz.easymessenger",
+            "certificate_hash": "246785723c48b7ff74b59ca6d0f238935f37e939"
+          }
+        },
+        {
           "client_id": "662555090588-ls9octq6rof845eubvcqbqkop55jqne0.apps.googleusercontent.com",
           "client_type": 3
         }

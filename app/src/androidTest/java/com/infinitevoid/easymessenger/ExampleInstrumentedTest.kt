@@ -1,4 +1,4 @@
-package com.topaz.easymessenger
+package com.infinitevoid.easymessenger
 
 import androidx.test.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
