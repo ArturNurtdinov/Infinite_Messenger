@@ -37,6 +37,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:19.0.0'
     implementation 'com.google.firebase:firebase-storage:19.0.1'
     implementation 'com.google.firebase:firebase-database:19.1.0'
+    implementation 'com.google.android.gms:play-services-ads:18.2.0'
+    implementation 'com.github.hani-momanii:SuperNova-Emoji:1.1'
+    implementation "com.android.support:support-emoji:28.0.0"
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation "com.xwray:groupie:2.4.0"
