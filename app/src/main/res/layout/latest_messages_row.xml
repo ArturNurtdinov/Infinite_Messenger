@@ -19,7 +19,7 @@
         app:layout_constraintStart_toEndOf="@+id/profile_picture"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <hani.momanii.supernova_emoji_library.Helper.EmojiconTextView
         android:id="@+id/message"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
