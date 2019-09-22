@@ -2,44 +2,43 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     tools:context=".views.ChatLogActivity">
 
-    <EditText
-        android:id="@+id/chat_log"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_margin="8dp"
-        android:hint="@string/enter_text"
-        android:inputType="textMultiLine"
-        android:textColor="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/send"
-        app:layout_constraintStart_toEndOf="@id/choose_file" />
-
     <ImageButton
         android:id="@+id/choose_file"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
         android:layout_margin="8dp"
         android:background="@color/colorPrimary"
         android:contentDescription="@string/choose_file"
-        android:src="@drawable/ic_image_holo_blue_light_50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:src="@drawable/ic_image_holo_blue_light_28dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/chat_log" />
 
     <ImageButton
         android:id="@+id/send"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
         android:layout_margin="8dp"
         android:background="@drawable/rounded_button"
         android:contentDescription="@string/send_UC"
-        android:src="@drawable/ic_send_white_24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:src="@drawable/ic_send_white_14dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/chat_log" />
+
+    <ImageView
+        android:id="@+id/emoji_btn"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_margin="8dp"
+        android:src="@drawable/ic_sentiment_satisfied_holo_blue_light_28dp"
+        android:visibility="visible"
+        app:layout_constraintStart_toEndOf="@+id/choose_file"
+        app:layout_constraintTop_toTopOf="@id/chat_log" />
 
     <ImageView
         android:id="@+id/choose_mark"
@@ -48,7 +47,8 @@
         android:background="@drawable/rounded_choose_mark"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@id/choose_file"
-        app:layout_constraintTop_toTopOf="@id/choose_file" />
+        app:layout_constraintTop_toTopOf="@id/choose_file"
+        tools:visibility="visible" />
 
     <ProgressBar
         android:id="@+id/loading_mark"
@@ -72,4 +72,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <hani.momanii.supernova_emoji_library.Helper.EmojiconEditText
+        android:id="@+id/chat_log"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_margin="8dp"
+        android:hint="@string/enter_text"
+        android:inputType="textMultiLine"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/send"
+        app:layout_constraintStart_toEndOf="@id/emoji_btn" />
 </androidx.constraintlayout.widget.ConstraintLayout>
