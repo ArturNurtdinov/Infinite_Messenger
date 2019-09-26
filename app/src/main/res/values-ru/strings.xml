@@ -41,4 +41,5 @@
     <string name="refresh">Обновить</string>
     <string name="fill_all_fields">Сначала заполните все поля</string>
     <string name="logged_successfully">Вы вошли успешно</string>
+    <string name="forget_password">Забыли пароль?</string>
 </resources>
