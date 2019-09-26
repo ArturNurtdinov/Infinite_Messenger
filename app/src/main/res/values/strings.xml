@@ -40,4 +40,5 @@
     <string name="refresh">Refresh</string>
     <string name="fill_all_fields">Please fill all fields</string>
     <string name="logged_successfully">Logged in successfully</string>
+    <string name="forget_password">Forget password?</string>
 </resources>
