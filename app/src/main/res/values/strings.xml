@@ -42,6 +42,5 @@
     <string name="logged_successfully">Logged in successfully</string>
     <string name="forget_password">Forget password?</string>
     <string name="enter_email">Enter email</string>
-    <string name="reset_password">Reset password</string>
     <string name="reset">Reset</string>
 </resources>
