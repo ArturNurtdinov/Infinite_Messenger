@@ -17,4 +17,14 @@ class LoginModel(private val onLoginListener: LoginContract.OnLoginListener) : L
             }
     }
 
+    override fun sendPasswordResetMail(email: String) {
+        FirebaseAuth.getInstance().sendPasswordResetEmail(email)
+            .addOnFailureListener {
+                onLoginListener.onFailure(it.message.toString())
+            }
+            .addOnSuccessListener {
+                onLoginListener.onMailSent()
+            }
+    }
+
 }

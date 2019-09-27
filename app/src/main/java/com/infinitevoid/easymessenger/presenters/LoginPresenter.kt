@@ -13,7 +13,15 @@ class LoginPresenter(private val view: LoginContract.View) : LoginContract.Prese
         view.onFailure(message)
     }
 
+    override fun onMailSent() {
+        view.onMailSent()
+    }
+
     override fun performLogin(email: String, password: String) {
         model.loginWithEmailAndPassword(email, password)
+    }
+
+    override fun sendPasswordResetMail(email: String) {
+        model.sendPasswordResetMail(email)
     }
 }
