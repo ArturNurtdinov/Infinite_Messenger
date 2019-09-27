@@ -43,4 +43,7 @@
     <string name="forget_password">Forget password?</string>
     <string name="enter_email">Enter email</string>
     <string name="reset">Reset</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="do_you_want_to_reset">Do you want to reset your password?</string>
+    <string name="password_reset_mail_was_sent">Password reset mail was sent</string>
 </resources>

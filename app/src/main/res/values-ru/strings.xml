@@ -44,4 +44,7 @@
     <string name="forget_password">Забыли пароль?</string>
     <string name="enter_email">Введите почту</string>
     <string name="reset">Сбросить</string>
+    <string name="forgot_password">Забыли пароль?</string>
+    <string name="do_you_want_to_reset">Вы действительно хотите сбросить пароль?</string>
+    <string name="password_reset_mail_was_sent">Письмо с инструкциями отправлено на ваш адрес</string>
 </resources>
