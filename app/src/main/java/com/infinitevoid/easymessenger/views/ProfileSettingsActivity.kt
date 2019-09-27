@@ -15,6 +15,8 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
 import com.infinitevoid.easymessenger.R
 import com.infinitevoid.easymessenger.contracts.ProfileSettingsContract
 import com.infinitevoid.easymessenger.data.User
@@ -29,6 +31,7 @@ class ProfileSettingsActivity : AppCompatActivity(), ProfileSettingsContract.Vie
     private val presenter = ProfileSettingsPresenter(this)
     private var isNameChanged = false
     private var isAvatarChanged = false
+    private var ad: InterstitialAd? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_settings)
@@ -36,6 +39,9 @@ class ProfileSettingsActivity : AppCompatActivity(), ProfileSettingsContract.Vie
         supportActionBar?.title = getString(R.string.settings)
         presenter.fetchUser()
 
+        ad = InterstitialAd(this)
+        ad?.adUnitId = "ca-app-pub-7027884186895233/5453572272"
+        ad?.loadAd(AdRequest.Builder().build())
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
         edit_profile_username.setOnClickListener {
@@ -109,8 +115,7 @@ class ProfileSettingsActivity : AppCompatActivity(), ProfileSettingsContract.Vie
                             this,
                             getString(R.string.wrong_username),
                             Toast.LENGTH_SHORT
-                        )
-                            .show()
+                        ).show()
                     } else {
                         presenter.setNewUsername(profile_username.text.toString())
                         presenter.setNewAvatar(selectedPhotoUri)
@@ -119,6 +124,9 @@ class ProfileSettingsActivity : AppCompatActivity(), ProfileSettingsContract.Vie
                             getString(R.string.changes_performed),
                             Toast.LENGTH_SHORT
                         ).show()
+                        if (ad?.isLoaded == true) {
+                            ad?.show()
+                        }
                         finish()
                     }
                 } else if (isNameChanged && !isAvatarChanged) {
@@ -134,6 +142,14 @@ class ProfileSettingsActivity : AppCompatActivity(), ProfileSettingsContract.Vie
                             .show()
                     } else {
                         presenter.setNewUsername(profile_username.text.toString())
+                        Toast.makeText(
+                            this,
+                            getString(R.string.changes_performed),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        if (ad?.isLoaded == true) {
+                            ad?.show()
+                        }
                         finish()
                     }
                 } else if (isAvatarChanged && !isNameChanged) {
@@ -143,8 +159,14 @@ class ProfileSettingsActivity : AppCompatActivity(), ProfileSettingsContract.Vie
                         getString(R.string.changes_performed),
                         Toast.LENGTH_SHORT
                     ).show()
+                    if (ad?.isLoaded == true) {
+                        ad?.show()
+                    }
                     finish()
                 } else if (!isAvatarChanged && !isNameChanged) {
+                    if (ad?.isLoaded == true) {
+                        ad?.show()
+                    }
                     finish()
                 }
             }
