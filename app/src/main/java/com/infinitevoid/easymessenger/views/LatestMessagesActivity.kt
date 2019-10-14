@@ -1,20 +1,11 @@
 package com.infinitevoid.easymessenger.views
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
-import android.content.Context
 import android.content.Intent
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.FontRequest
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import androidx.core.app.NotificationCompat
-import androidx.emoji.text.EmojiCompat
-import androidx.emoji.text.FontRequestEmojiCompatConfig
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
@@ -34,9 +25,6 @@ class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View 
     companion object {
         var currentUser: User? = null
     }
-
-    private var notificationManager: NotificationManager? = null
-    private var channel: NotificationChannel? = null
     private val presenter = LatestMessagesPresenter(this)
     private val adapter = GroupAdapter<ViewHolder>()
     private val latestMessagesMap = LinkedHashMap<String, ChatMessage>()
@@ -67,20 +55,10 @@ class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View 
                 DividerItemDecoration.VERTICAL
             )
         )
-        notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            channel = NotificationChannel(
-                Constants.CHANNEL_ID,
-                Constants.CHANNEL_NAME,
-                NotificationManager.IMPORTANCE_DEFAULT
-            )
-            notificationManager?.createNotificationChannel(channel ?: return)
-        }
         presenter.verifyIsLogged()
     }
 
     override fun isLogged() {
-        presenter.loadMap(this)
         presenter.fetchCurrentUser()
         presenter.setListenerForLatest()
         if (latestMessagesMap.isEmpty()) {
@@ -154,34 +132,5 @@ class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View 
         val intent = Intent(this, RegisterActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
-    }
-
-    override fun onStop() {
-        presenter.saveMap(this)
-        super.onStop()
-    }
-
-    override fun onDestroy() {
-        presenter.onDestroy()
-        super.onDestroy()
-    }
-
-    override fun setNotification(message: ChatMessage, user: User) {
-        val intent = Intent(this, LatestMessagesActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-        val pendingIntent =
-            PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-        if ((message.read == "false") && (message.toId == currentUser?.uid)) {
-            val notification = NotificationCompat.Builder(this, Constants.CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_notification)
-                .setContentTitle(user.username)
-                .setContentIntent(pendingIntent)
-                .setWhen(System.currentTimeMillis())
-                .setContentText(message.message)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setAutoCancel(true)
-                .build()
-            notificationManager?.notify(1, notification)
-        }
     }
 }
