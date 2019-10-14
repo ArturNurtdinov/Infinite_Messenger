@@ -1,6 +1,5 @@
 package com.infinitevoid.easymessenger.presenters
 
-import android.content.Context
 import com.infinitevoid.easymessenger.contracts.LatestMessagesContract
 import com.infinitevoid.easymessenger.data.ChatMessage
 import com.infinitevoid.easymessenger.data.User
