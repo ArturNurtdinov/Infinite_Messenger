@@ -1,15 +1,10 @@
 package com.infinitevoid.easymessenger.models
 
-import android.content.Context
-import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.infinitevoid.easymessenger.contracts.LatestMessagesContract
 import com.infinitevoid.easymessenger.data.ChatMessage
 import com.infinitevoid.easymessenger.data.User
-import java.lang.Exception
 
 class LatestMessagesModel(private val onDataReady: LatestMessagesContract.OnDataReady) :
     LatestMessagesContract.Model, ChildEventListener {
@@ -56,7 +51,6 @@ class LatestMessagesModel(private val onDataReady: LatestMessagesContract.OnData
         val ref = firebaseInstance.getReference("/users/$uid")
         ref.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
-
             }
 
             override fun onDataChange(p0: DataSnapshot) {
