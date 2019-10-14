@@ -27,18 +27,6 @@ class LatestMessagesPresenter(private val view: LatestMessagesContract.View) :
         model.setListenerForLatest()
     }
 
-    override fun onDestroy() {
-        model.onDestroy()
-    }
-
-    override fun saveMap(context: Context) {
-        model.saveMap(context)
-    }
-
-    override fun loadMap(context: Context) {
-        model.loadMap(context)
-    }
-
     override fun onLatestChanged(chatMessage: ChatMessage, key: String) {
         view.onLatestChanged(chatMessage, key)
     }
@@ -63,9 +51,5 @@ class LatestMessagesPresenter(private val view: LatestMessagesContract.View) :
     override fun sendUser(user: User?) {
         currentUser = user
         view.initializeUser(user)
-    }
-
-    override fun setNotification(chatMessage: ChatMessage, user: User?) {
-        view.setNotification(chatMessage, user ?: return)
     }
 }
