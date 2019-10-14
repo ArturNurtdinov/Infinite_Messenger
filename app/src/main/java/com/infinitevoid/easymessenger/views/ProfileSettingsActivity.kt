@@ -23,6 +23,7 @@ import com.infinitevoid.easymessenger.data.User
 import com.infinitevoid.easymessenger.presenters.ProfileSettingsPresenter
 import com.infinitevoid.easymessenger.utils.Constants
 import kotlinx.android.synthetic.main.activity_profile_settings.*
+import kotlin.random.Random
 
 class ProfileSettingsActivity : AppCompatActivity(), ProfileSettingsContract.View {
 
@@ -164,7 +165,7 @@ class ProfileSettingsActivity : AppCompatActivity(), ProfileSettingsContract.Vie
                     }
                     finish()
                 } else if (!isAvatarChanged && !isNameChanged) {
-                    if (ad?.isLoaded == true) {
+                    if ((ad?.isLoaded == true) && (Random.nextInt(2) == 1)) {
                         ad?.show()
                     }
                     finish()
