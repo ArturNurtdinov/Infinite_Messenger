@@ -27,7 +27,6 @@ import kotlin.random.Random
 
 class ProfileSettingsActivity : AppCompatActivity(), ProfileSettingsContract.View {
 
-    lateinit var user: User
     private var selectedPhotoUri: Uri? = null
     private val presenter = ProfileSettingsPresenter(this)
     private var isNameChanged = false

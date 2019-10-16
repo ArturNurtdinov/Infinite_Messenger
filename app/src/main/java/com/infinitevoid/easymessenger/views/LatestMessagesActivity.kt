@@ -22,6 +22,7 @@ import kotlinx.android.synthetic.main.activity_latest_messages.*
 import kotlinx.android.synthetic.main.latest_messages_row.view.*
 
 class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View {
+
     companion object {
         var currentUser: User? = null
     }
@@ -32,18 +33,12 @@ class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_latest_messages)
 
-        MobileAds.initialize(this)
-        val request = AdRequest.Builder()
-            .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-            .build()
-        adView.loadAd(request)
-
         adapter.setOnItemClickListener { item, view ->
             val intent = Intent(this, ChatLogActivity::class.java)
             intent.putExtra(Constants.USER_KEY, (item as LatestMessagesItem).userPartner)
             intent.putExtra(Constants.MESSAGE_KEY, item.chatMessage)
             view.read_mark.visibility = View.GONE
-            if ((item.chatMessage.read == "false") && (item.chatMessage.fromId != currentUser?.uid)) {
+            if ((item.chatMessage.read == "false") && (item.chatMessage.fromId != presenter.getUid())) {
                 presenter.setMessageRead(item.chatMessage)
             }
             startActivity(intent)
@@ -56,15 +51,22 @@ class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View 
             )
         )
         presenter.verifyIsLogged()
+        // Here comes isLogged or isNotLogged, and then next code
+
+        MobileAds.initialize(this)
+        val request = AdRequest.Builder()
+            .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+            .build()
+        adView.loadAd(request)
     }
 
     override fun isLogged() {
-        presenter.fetchCurrentUser()
-        presenter.setListenerForLatest()
         if (latestMessagesMap.isEmpty()) {
             progress_bar.visibility = View.GONE
         }
-
+        presenter.setListenerForLatest()
+        presenter.getUid()
+        presenter.fetchUser()
     }
 
     override fun onLatestChanged(chatMessage: ChatMessage, key: String) {
@@ -118,7 +120,7 @@ class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View 
         return super.onOptionsItemSelected(item)
     }
 
-    override fun initializeUser(user: User?) {
+    override fun initializeUser(user: User) {
         currentUser = user
     }
 

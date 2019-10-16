@@ -1,24 +1,25 @@
 package com.infinitevoid.easymessenger.contracts
 
-import android.content.Context
 import com.infinitevoid.easymessenger.data.ChatMessage
 import com.infinitevoid.easymessenger.data.User
 
 interface LatestMessagesContract {
     interface Model {
         fun setListenerForLatest()
-        fun fetchCurrentUser()
+        fun getUid(): String?
         fun verifyIsLogged(): Boolean
         fun signOut()
         fun setMessageRead(message: ChatMessage)
+        fun fetchUser()
     }
 
     interface Presenter {
         fun setListenerForLatest()
-        fun fetchCurrentUser()
+        fun getUid(): String
         fun verifyIsLogged()
         fun signOut()
         fun setMessageRead(message: ChatMessage)
+        fun fetchUser()
     }
 
     interface View {
@@ -27,12 +28,12 @@ interface LatestMessagesContract {
         fun isLogged()
         fun isNotLogged()
         fun onSignOut()
-        fun initializeUser(user: User?)
+        fun initializeUser(user: User)
     }
 
     interface OnDataReady {
         fun onLatestChanged(chatMessage: ChatMessage, key: String)
         fun onLatestAdded(chatMessage: ChatMessage, key: String)
-        fun sendUser(user: User?)
+        fun onUserFetched(user: User)
     }
 }

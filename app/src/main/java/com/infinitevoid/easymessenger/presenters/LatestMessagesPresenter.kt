@@ -9,13 +9,8 @@ class LatestMessagesPresenter(private val view: LatestMessagesContract.View) :
     LatestMessagesContract.Presenter, LatestMessagesContract.OnDataReady {
     private val model = LatestMessagesModel(this)
 
-    private var currentUser: User? = null
-    override fun fetchCurrentUser() {
-        if (currentUser == null) {
-            model.fetchCurrentUser()
-        } else {
-            view.initializeUser(currentUser)
-        }
+    override fun getUid(): String {
+        return model.getUid()!!
     }
 
     override fun setMessageRead(message: ChatMessage) {
@@ -26,12 +21,20 @@ class LatestMessagesPresenter(private val view: LatestMessagesContract.View) :
         model.setListenerForLatest()
     }
 
+    override fun fetchUser() {
+        model.fetchUser()
+    }
+
     override fun onLatestChanged(chatMessage: ChatMessage, key: String) {
         view.onLatestChanged(chatMessage, key)
     }
 
     override fun onLatestAdded(chatMessage: ChatMessage, key: String) {
         view.onLatestAdded(chatMessage, key)
+    }
+
+    override fun onUserFetched(user: User) {
+        view.initializeUser(user)
     }
 
     override fun verifyIsLogged() {
@@ -45,10 +48,5 @@ class LatestMessagesPresenter(private val view: LatestMessagesContract.View) :
     override fun signOut() {
         model.signOut()
         view.onSignOut()
-    }
-
-    override fun sendUser(user: User?) {
-        currentUser = user
-        view.initializeUser(user)
     }
 }

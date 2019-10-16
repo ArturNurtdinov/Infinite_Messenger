@@ -50,19 +50,14 @@ class LatestMessagesItem(val chatMessage: ChatMessage) :
         }
 
         if (chatMessage.fromId == currentUserId) {
-            val currentUser = LatestMessagesActivity.currentUser
-            if (currentUser != null) {
-                viewHolder.itemView.message.text =
-                    currentUser.username.plus(": ").plus(chatMessage.message)
-            } else {
-                viewHolder.itemView.message.text = "you: ".plus(chatMessage.message)
-            }
+            viewHolder.itemView.message.text = "you: ".plus(chatMessage.message)
         } else {
             viewHolder.itemView.message.text = chatMessage.message
         }
 
-        if (chatMessage.message.isEmpty() && chatMessage.imageURL.isNotEmpty()){
-            viewHolder.itemView.message.text = viewHolder.itemView.message.text.toString().plus(" photo")
+        if (chatMessage.message.isEmpty() && chatMessage.imageURL.isNotEmpty()) {
+            viewHolder.itemView.message.text =
+                viewHolder.itemView.message.text.toString().plus(" photo")
         }
 
         val ref = FirebaseDatabase.getInstance().getReference("/users/$chatPartnerId")
