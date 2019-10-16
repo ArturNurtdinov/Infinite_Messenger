@@ -5,7 +5,6 @@ import com.google.firebase.database.*
 import com.infinitevoid.easymessenger.contracts.LatestMessagesContract
 import com.infinitevoid.easymessenger.data.ChatMessage
 import com.infinitevoid.easymessenger.data.User
-import kotlin.contracts.contract
 
 class LatestMessagesModel(private val onDataReady: LatestMessagesContract.OnDataReady) :
     LatestMessagesContract.Model {
