@@ -1,14 +1,15 @@
 package com.infinitevoid.easymessenger.models
 
+import android.content.Context
 import android.net.Uri
 import android.widget.ImageView
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
-import com.squareup.picasso.Picasso
 import com.infinitevoid.easymessenger.contracts.ProfileSettingsContract
 import com.infinitevoid.easymessenger.data.User
 import java.util.*
@@ -28,8 +29,8 @@ class ProfileSettingsModel(private val onDataReady: ProfileSettingsContract.OnDa
         })
     }
 
-    override fun loadPic(view: ImageView, uri: String?) {
-        Picasso.get().load(uri).into(view)
+    override fun loadPic(view: ImageView, uri: String?, context: Context) {
+        Glide.with(context).load(uri).into(view)
     }
 
     override fun setNewAvatar(uri: Uri?) {

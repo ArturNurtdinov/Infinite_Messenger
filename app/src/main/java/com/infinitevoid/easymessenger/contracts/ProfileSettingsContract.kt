@@ -1,5 +1,6 @@
 package com.infinitevoid.easymessenger.contracts
 
+import android.content.Context
 import android.net.Uri
 import android.widget.ImageView
 import com.infinitevoid.easymessenger.data.User
@@ -13,7 +14,7 @@ interface ProfileSettingsContract {
 
     interface Presenter {
         fun fetchUser()
-        fun loadPic(view: ImageView, uri: String?)
+        fun loadPic(view: ImageView, uri: String?, context: Context)
         fun setNewAvatar(uri: Uri?)
         fun setNewUsername(username: String)
         fun resetPassword()
@@ -21,7 +22,7 @@ interface ProfileSettingsContract {
 
     interface Model {
         fun fetchUser()
-        fun loadPic(view: ImageView, uri: String?)
+        fun loadPic(view: ImageView, uri: String?, context: Context)
         fun setNewAvatar(uri: Uri?)
         fun setNewUsername(username: String)
         fun resetPassword()

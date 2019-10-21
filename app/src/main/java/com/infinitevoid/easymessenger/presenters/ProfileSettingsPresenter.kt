@@ -1,5 +1,6 @@
 package com.infinitevoid.easymessenger.presenters
 
+import android.content.Context
 import android.net.Uri
 import android.widget.ImageView
 import com.infinitevoid.easymessenger.contracts.ProfileSettingsContract
@@ -14,9 +15,9 @@ class ProfileSettingsPresenter(private val view: ProfileSettingsContract.View) :
         model.fetchUser()
     }
 
-    override fun loadPic(view: ImageView, uri: String?) {
+    override fun loadPic(view: ImageView, uri: String?, context: Context) {
         this.view.showProgressBar()
-        model.loadPic(view, uri)
+        model.loadPic(view, uri, context)
     }
 
     override fun setNewAvatar(uri: Uri?) {

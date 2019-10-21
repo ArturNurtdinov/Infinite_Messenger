@@ -84,9 +84,9 @@ class ProfileSettingsActivity : AppCompatActivity(), ProfileSettingsContract.Vie
     override fun initializeViewWithUser(user: User) {
         profile_username.setText(user.username, TextView.BufferType.EDITABLE)
         if (user.profileImageURL.isEmpty()) {
-            presenter.loadPic(profile_picture, Constants.DEFAULT_AVATAR_URL)
+            presenter.loadPic(profile_picture, Constants.DEFAULT_AVATAR_URL, this)
         } else {
-            presenter.loadPic(profile_picture, user.profileImageURL)
+            presenter.loadPic(profile_picture, user.profileImageURL, this)
         }
     }
 
