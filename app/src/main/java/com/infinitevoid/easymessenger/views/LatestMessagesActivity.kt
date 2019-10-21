@@ -75,7 +75,7 @@ class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View 
         adapter.clear()
         latestMessagesMap.toSortedMap(compareBy { -latestMessagesMap[it]?.timestamp!! })
             .values.forEach {
-            adapter.add(LatestMessagesItem(it))
+            adapter.add(LatestMessagesItem(it, this))
         }
     }
 
@@ -85,7 +85,7 @@ class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View 
         progress_bar.visibility = View.GONE
         latestMessagesMap.toSortedMap(compareBy { -latestMessagesMap[it]?.timestamp!! })
             .values.forEach {
-            adapter.add(LatestMessagesItem(it))
+            adapter.add(LatestMessagesItem(it, this))
         }
     }
 
@@ -114,7 +114,7 @@ class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View 
                 adapter.clear()
                 latestMessagesMap.toSortedMap(compareBy { -latestMessagesMap[it]?.timestamp!! })
                     .values.forEach {
-                    adapter.add(LatestMessagesItem(it))
+                    adapter.add(LatestMessagesItem(it, this))
                 }
             }
         }

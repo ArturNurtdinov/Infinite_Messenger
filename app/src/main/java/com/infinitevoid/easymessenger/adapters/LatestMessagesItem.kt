@@ -1,25 +1,25 @@
 package com.infinitevoid.easymessenger.adapters
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.View
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.squareup.picasso.Picasso
 import com.infinitevoid.easymessenger.R
 import com.infinitevoid.easymessenger.data.ChatMessage
 import com.infinitevoid.easymessenger.data.User
 import com.infinitevoid.easymessenger.utils.Constants
-import com.infinitevoid.easymessenger.views.LatestMessagesActivity
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.latest_messages_row.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class LatestMessagesItem(val chatMessage: ChatMessage) :
+class LatestMessagesItem(val chatMessage: ChatMessage, private val context: Context) :
     Item<ViewHolder>() {
     var userPartner: User? = null
 
@@ -73,10 +73,12 @@ class LatestMessagesItem(val chatMessage: ChatMessage) :
                     viewHolder.itemView.username.text = user.username
 
                     if (user.profileImageURL != "") {
-                        Picasso.get().load(user.profileImageURL)
+                        Glide.with(context)
+                            .load(user.profileImageURL)
                             .into(viewHolder.itemView.profile_picture)
                     } else {
-                        Picasso.get().load(Constants.DEFAULT_AVATAR_URL)
+                        Glide.with(context)
+                            .load(Constants.DEFAULT_AVATAR_URL)
                             .into(viewHolder.itemView.profile_picture)
                     }
                 }
