@@ -3,8 +3,8 @@ package com.infinitevoid.easymessenger.views
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import com.bumptech.glide.Glide
 import com.infinitevoid.easymessenger.R
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_full_screen_image.*
 import kotlin.math.abs
 
@@ -27,9 +27,9 @@ class FullScreenImageActivity : AppCompatActivity() {
             )
         val url = intent.getStringExtra("IMAGE_KEY")
 
-        Picasso.get().load(url).into(myImage)
+        Glide.with(this).load(url).into(myImage)
 
-        myImage.setOnViewDragListener { dx, dy ->
+        myImage.setOnViewDragListener { _, dy ->
             if (myImage.scale <= myImage.minimumScale) {
                 if (abs(dy) > 100) {
                     finish()
