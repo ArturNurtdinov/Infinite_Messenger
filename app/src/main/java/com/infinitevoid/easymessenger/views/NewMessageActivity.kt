@@ -55,7 +55,7 @@ class NewMessageActivity : AppCompatActivity(), NewMessageContract.View {
 
     override fun addUser(user: User) {
         progress_bar.visibility = View.GONE
-        adapter.add(UserItem(user))
+        adapter.add(UserItem(user, this))
         userList.add(user)
     }
 
@@ -71,7 +71,7 @@ class NewMessageActivity : AppCompatActivity(), NewMessageContract.View {
             override fun onQueryTextChange(newText: String?): Boolean {
                 adapter.clear()
                 userList.filter { it.username.contains(newText ?: return false, true) }.forEach {
-                    adapter.add(UserItem(it))
+                    adapter.add(UserItem(it, applicationContext))
                 }
                 return true
             }
