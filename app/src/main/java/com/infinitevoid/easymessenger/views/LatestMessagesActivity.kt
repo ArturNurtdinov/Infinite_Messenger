@@ -26,6 +26,7 @@ class LatestMessagesActivity : AppCompatActivity(), LatestMessagesContract.View 
     companion object {
         var currentUser: User? = null
     }
+
     private val presenter = LatestMessagesPresenter(this)
     private val adapter = GroupAdapter<ViewHolder>()
     private val latestMessagesMap = LinkedHashMap<String, ChatMessage>()

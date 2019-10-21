@@ -100,6 +100,10 @@ class LoginActivity : AppCompatActivity(), LoginContract.View, LoginContract.OnL
     }
 
     override fun onMailSent() {
-        Toast.makeText(this@LoginActivity, getString(R.string.password_reset_mail_was_sent), Toast.LENGTH_LONG).show()
+        Toast.makeText(
+            this@LoginActivity,
+            getString(R.string.password_reset_mail_was_sent),
+            Toast.LENGTH_LONG
+        ).show()
     }
 }
