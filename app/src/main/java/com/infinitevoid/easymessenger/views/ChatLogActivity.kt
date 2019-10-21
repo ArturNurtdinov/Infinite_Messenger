@@ -96,7 +96,7 @@ class ChatLogActivity : AppCompatActivity(), ChatLogContract.View {
     }
 
     override fun showMessageFrom(message: ChatMessage) {
-        adapter.add(ChatFromItem(message, chatPartner ?: return) { openFullscreen(it) })
+        adapter.add(ChatFromItem(message, chatPartner ?: return, this) { openFullscreen(it) })
         if (needToScroll ?: return) {
             chat_log_recycler.scrollToPosition(adapter.itemCount - 1)
         }
@@ -105,7 +105,7 @@ class ChatLogActivity : AppCompatActivity(), ChatLogContract.View {
 
     override fun showMessageTo(message: ChatMessage) {
         val currentUser = LatestMessagesActivity.currentUser ?: return
-        adapter.add(ChatToItem(message, currentUser) { openFullscreen(it) })
+        adapter.add(ChatToItem(message, currentUser, this) { openFullscreen(it) })
         loading_mark.visibility = View.GONE
         chat_log_recycler.scrollToPosition(adapter.itemCount - 1)
         latestMessage = message

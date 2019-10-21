@@ -1,7 +1,8 @@
 package com.infinitevoid.easymessenger.adapters
 
+import android.content.Context
 import android.view.View
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
 import com.infinitevoid.easymessenger.R
 import com.infinitevoid.easymessenger.data.ChatMessage
 import com.infinitevoid.easymessenger.data.User
@@ -12,7 +13,12 @@ import kotlinx.android.synthetic.main.chat_to_row.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ChatToItem(private val chatMessage: ChatMessage, private val user: User, private val click: (String) -> Unit) :
+class ChatToItem(
+    private val chatMessage: ChatMessage,
+    private val user: User,
+    private val context: Context,
+    private val click: (String) -> Unit
+) :
     Item<ViewHolder>() {
     override fun bind(viewHolder: ViewHolder, position: Int) {
         val date = Date(chatMessage.timestamp * 1000)
@@ -25,14 +31,18 @@ class ChatToItem(private val chatMessage: ChatMessage, private val user: User, p
         viewHolder.itemView.message.text = chatMessage.message
         viewHolder.itemView.date_text.text = dateFormat.format(date)
         if (user.profileImageURL != "") {
-            Picasso.get().load(user.profileImageURL).into(viewHolder.itemView.profile_picture)
+            Glide.with(context)
+                .load(user.profileImageURL)
+                .into(viewHolder.itemView.profile_picture)
         } else {
-            Picasso.get().load(Constants.DEFAULT_AVATAR_URL)
+            Glide.with(context)
+                .load(Constants.DEFAULT_AVATAR_URL)
                 .into(viewHolder.itemView.profile_picture)
         }
 
         if (chatMessage.imageURL != "") {
-            Picasso.get().load(chatMessage.imageURL)
+            Glide.with(context)
+                .load(chatMessage.imageURL)
                 .into(viewHolder.itemView.message_image)
             viewHolder.itemView.message_image.setOnClickListener { click(chatMessage.imageURL) }
             viewHolder.itemView.message_image.visibility = View.VISIBLE
