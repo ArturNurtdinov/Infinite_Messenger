@@ -30,5 +30,5 @@ Current version 1.1. - 01.10.2019:
 # Troubleshoot
 1. LatestMessageItem has access to database in it
 2. Data classes used for fetching and also in app logic
-3. Change google persistance to my with Room & coroutines. **Do i need it**???
-4. **(Done)** Change Picasso lib to Glide
+3. **(Done)** Change Picasso lib to Glide
+4. Change google persistance to my with Room & coroutines. **Do i need it**???
