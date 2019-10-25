@@ -1,6 +1,5 @@
 package com.infinitevoid.easymessenger.adapters
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.view.View
 import com.bumptech.glide.Glide
