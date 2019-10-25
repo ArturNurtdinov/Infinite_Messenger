@@ -46,4 +46,5 @@
     <string name="forgot_password">Forgot password?</string>
     <string name="do_you_want_to_reset">Do you want to reset your password?</string>
     <string name="password_reset_mail_was_sent">Password reset mail was sent</string>
+    <string name="placeholder_you">you: %1$s</string>
 </resources>

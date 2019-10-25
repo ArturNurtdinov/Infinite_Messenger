@@ -27,7 +27,6 @@ class LatestMessagesItem(val chatMessage: ChatMessage, private val context: Cont
         return R.layout.latest_messages_row
     }
 
-    @SuppressLint("SetTextI18n")
     override fun bind(viewHolder: ViewHolder, position: Int) {
         val date = Date(chatMessage.timestamp * 1000)
         val dateFormat =
@@ -50,7 +49,8 @@ class LatestMessagesItem(val chatMessage: ChatMessage, private val context: Cont
         }
 
         if (chatMessage.fromId == currentUserId) {
-            viewHolder.itemView.message.text = "you: ".plus(chatMessage.message)
+            viewHolder.itemView.message.text =
+                context.getString(R.string.placeholder_you, chatMessage.message)
         } else {
             viewHolder.itemView.message.text = chatMessage.message
         }
