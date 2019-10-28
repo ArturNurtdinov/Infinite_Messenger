@@ -4,9 +4,10 @@ https://play.google.com/store/apps/details?id=com.topaz.easymessenger
 
 Project started 15.08.2019
 
-Current version 1.1. - 01.10.2019:
+Current version 1.1.1 - 01.10.2019:
 1. Added emojis
 2. Chat log activity changed
+3. Notifications removed. Will be added back in future
 
 # Bug treker
 ### 1. **(Fixed)** When dialoue started with person, this person sees it as unnamed dialogue without picture. When unnamed item clicked - app crashes.
