@@ -1,5 +1,5 @@
 # EasyMessenger
-Simple messenger on Kotlin with Firebase
+Messenger on Kotlin with Firebase
 https://play.google.com/store/apps/details?id=com.topaz.easymessenger
 
 Project started 15.08.2019
