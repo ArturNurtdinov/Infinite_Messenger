@@ -179,6 +179,7 @@ class ProfileSettingsActivity : AppCompatActivity(), ProfileSettingsContract.Vie
         if (requestCode == 0 && resultCode == Activity.RESULT_OK && data != null) {
             val bitmap =
                 MediaStore.Images.Media.getBitmap(contentResolver, data.data)
+            profile_picture.rotation = 90f
             profile_picture.setImageBitmap(bitmap)
             selectedPhotoUri = data.data
             isAvatarChanged = true
